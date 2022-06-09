@@ -1,0 +1,36 @@
+.table {
+  height: 40vh;
+  width: 40vh;
+  background-color: black;
+  z-index: 5;
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+}
+
+.west {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(22%, -50%) rotate(90deg);
+}
+
+.east {
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  transform: translate(-22%, -50%) rotate(90deg);
+}
+.south {
+  position: absolute;
+  bottom: 0;
+  transform: translate(-50%, 0%);
+  left: 50%;
+}
+.north {
+  position: absolute;
+  top: 0;
+  transform: translate(-50%, 0%);
+  left: 50%;
+}
