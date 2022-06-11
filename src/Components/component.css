@@ -1,0 +1,38 @@
+.alert-border {
+  border: 4px solid red;
+  animation: blink 1s;
+  animation-iteration-count: 5;
+}
+
+@keyframes blink {
+  50% {
+    border-color: azure;
+  }
+}
+.auction {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  /* grid-template-rows: auto [last-line]; */
+  padding: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* height: 20vh; */
+  width: 20vw;
+  background-color: aqua;
+}
+.auction span {
+  padding: 5px;
+  margin: 5px;
+  border: 2px solid black;
+  font-size: large;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: antiquewhite;
+  border-radius: 5px;
+}
+.auction .visited {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

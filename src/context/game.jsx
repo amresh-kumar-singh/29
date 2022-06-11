@@ -12,7 +12,13 @@ export default function GameProvider({ children }) {
   });
   const [gameCards, setGameCards] = useState(game.deck);
   const [scoreCards, SetScoreCards] = useState(game.score);
-  const [table, setTable] = useState([]);
+  const [table, setTable] = useState(game.table);
+  const [players, setPlayers] = useState(game.players);
+  const [yourTeam, setYourTeam] = useState({ point: 0, score: 0 });
+  const [opponentTeam, setOpponentTeam] = useState({ point: 0, score: 0 });
+  const [initialPlayer, setInitialPlayer] = useState(0);
+  const [call, setCall] = useState({ call: -1, caller: 0 }); //authion and bid
+  const [dealer, setDealer] = useState(0);
   // console.log(gameCards);
   return (
     <Game.Provider
@@ -23,6 +29,18 @@ export default function GameProvider({ children }) {
         SetScoreCards,
         table,
         setTable,
+        players,
+        setPlayers,
+        yourTeam,
+        setYourTeam,
+        opponentTeam,
+        setOpponentTeam,
+        initialPlayer,
+        setInitialPlayer,
+        call,
+        setCall,
+        dealer,
+        setDealer,
       }}
     >
       {children}

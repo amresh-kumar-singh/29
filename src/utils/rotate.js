@@ -15,7 +15,7 @@ const rotate = {
     height: "12%",
     width: "fit-content",
   },
-  east: {
+  west: {
     position: "absolute",
     left: "0%",
     height: "12%",
@@ -23,7 +23,7 @@ const rotate = {
     transformOrigin: "left",
     transform: " rotate(90deg) translate(0px, -50%)",
   },
-  west: {
+  east: {
     position: "absolute",
     right: "0%",
     top: "50%",

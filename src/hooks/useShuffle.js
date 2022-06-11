@@ -24,10 +24,10 @@ const useShuffle = () => {
       let rear = arr.slice(rand);
 
       if (front.length > rear.length) {
-        console.log(`front: ${front.length} rand ${rand}`);
+        // console.log(`front: ${front.length} rand ${rand}`);
         return [...rear, ...innerSuffle(front, times - 1)];
       } else {
-        console.log(`rear: ${rear.length} rand ${rand}`);
+        // console.log(`rear: ${rear.length} rand ${rand}`);
         return [...innerSuffle(rear, times - 1), ...front];
       }
     }
