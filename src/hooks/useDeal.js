@@ -10,20 +10,20 @@ const useDeal = () => {
     setPlayers((prev) => {
       return {
         ...prev,
-        [playersArr[dealer + 1]]: [
-          ...prev[playersArr[dealer + 1]],
+        [playersArr[(dealer + 1) % 4]]: [
+          ...prev[playersArr[(dealer + 1) % 4]],
           ...gameCards.slice(0, 4),
         ],
-        [playersArr[dealer + 2]]: [
-          ...prev[playersArr[dealer + 2]],
+        [playersArr[(dealer + 2) % 4]]: [
+          ...prev[playersArr[(dealer + 2) % 4]],
           ...gameCards.slice(4, 8),
         ],
-        [playersArr[dealer + 3]]: [
-          ...prev[playersArr[dealer + 3]],
+        [playersArr[(dealer + 3) % 4]]: [
+          ...prev[playersArr[(dealer + 3) % 4]],
           ...gameCards.slice(8, 12),
         ],
-        [playersArr[dealer]]: [
-          ...prev[playersArr[dealer]],
+        [playersArr[dealer % 4]]: [
+          ...prev[playersArr[dealer % 4]],
           ...gameCards.slice(12, 16),
         ],
       };

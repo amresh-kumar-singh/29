@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import useStorage from "../hooks/useStorage";
 import cards from "../utils/cards";
 const Game = createContext();
@@ -14,12 +14,17 @@ export default function GameProvider({ children }) {
   const [scoreCards, SetScoreCards] = useState(game.score);
   const [table, setTable] = useState(game.table);
   const [players, setPlayers] = useState(game.players);
-  const [yourTeam, setYourTeam] = useState({ point: 0, score: 0 });
-  const [opponentTeam, setOpponentTeam] = useState({ point: 0, score: 0 });
-  const [initialPlayer, setInitialPlayer] = useState(0);
-  const [call, setCall] = useState({ call: -1, caller: 0 }); //authion and bid
+  const [yourTeam, setYourTeam] = useState({ point: 0, score: 1 });
+  const [opponentTeam, setOpponentTeam] = useState({ point: 0, score: -7 });
+  const [call, setCall] = useState({ call: -1, caller: -1 }); //authion and bid
   const [dealer, setDealer] = useState(0);
-  // console.log(gameCards);
+  const [initialPlayer, setInitialPlayer] = useState(0);
+  console.log(dealer, initialPlayer);
+
+  useEffect(() => {
+    setInitialPlayer((dealer + 1) % 4);
+  }, [dealer]);
+
   return (
     <Game.Provider
       value={{

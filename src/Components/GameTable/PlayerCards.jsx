@@ -6,7 +6,7 @@ const PlayerCards = ({ player, card }) => {
   const [zIndex, setZIndex] = useState(6);
 
   useEffect(() => {
-    console.log(zIndex, "zindex");
+    // console.log(zIndex, "zindex");
     setZIndex((prev) => prev + 1);
   }, []);
 
