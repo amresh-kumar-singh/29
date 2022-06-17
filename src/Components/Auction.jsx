@@ -1,3 +1,4 @@
+import { Box, Grid, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import { GameState } from "../context/game";
 import playersArr from "../utils/playersArr";
@@ -47,22 +48,41 @@ const Auction = ({ setDisplayAuction }) => {
       setBidder((prev) => [(bidder[1] + 1) % 4, bidder[1]]);
     }
   };
+
   return (
-    <div className="auction">
-      <span>{playersArr[bidder[0]]}</span>
-      {arr.map((item) => {
+    <Grid container spacing={4} className="auction">
+      <Grid
+        item
+        xs={12}
+        component="span"
+        sx={{ fontFamily: "auto", cursor: "auto !important" }}
+      >
+        {playersArr[bidder[0]]}
+      </Grid>
+      {arr.map((element) => {
         return (
-          <span
-            key={item}
-            className={item <= call.call ? "visited" : ""}
-            onClick={() => item > call.call && handleCall(item)}
+          <Grid
+            item
+            xs={2}
+            component="span"
+            key={element}
+            className={element <= call.call ? "visited" : ""}
+            onClick={() => element > call.call && handleCall(element)}
           >
-            {item}
-          </span>
+            {element}
+          </Grid>
         );
       })}
-      <span onClick={handlePass}>Pass</span>
-    </div>
+      <Grid
+        item
+        xs={4}
+        component="span"
+        onClick={handlePass}
+        sx={{ marginLeft: "4% !important" }}
+      >
+        Pass
+      </Grid>
+    </Grid>
   );
 };
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import playersArr from "../../utils/playersArr";
-import "./cards.css";
+import "./tableStyle.css";
 
 const PlayerCards = ({ player, card }) => {
   const [zIndex, setZIndex] = useState(6);

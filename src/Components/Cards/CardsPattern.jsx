@@ -33,31 +33,39 @@ const CardsPattern = ({ classCards }) => {
   }, [number[0]]);
 
   return (
-    <div className={`card ${classCards}`}>
-      <img
-        src={`cards/Score/6${type}.png`}
-        height="100%"
-        style={{
-          position: "absolute",
-          left: 0,
-        }}
-      ></img>
-      <div
-        className={`pattern close ${theme.card} score${Math.abs(number[1])}`}
-        style={{
-          position: "absolute",
-          height: "100%",
-          left: 0,
-          weight: "100%",
-          backgroundImage:
-            cover < 6 ? `url(cards/Score/${cover}${type}.png)` : "",
-          backgroundSize: cover < 6 ? "cover" : "",
-        }}
-      >
-        {classCards === "trump" && <div className="title">Show</div>}
+    <>
+      <p className={`text ${classCards}Text`}>{classCards}</p>
+      <div className={`card ${classCards}`}>
+        <img
+          src={
+            classCards === "trump"
+              ? "cards/Score/red_joker.png"
+              : `cards/Score/6${type}.png`
+          }
+          height="100%"
+          style={{
+            position: "absolute",
+            left: 0,
+          }}
+        ></img>
+        <div
+          className={`pattern close ${theme.card} score${Math.abs(number[1])}`}
+          style={{
+            position: "absolute",
+            height: "100%",
+            left: 0,
+            weight: "100%",
+            boxSizing: cover === 6 ? "border-box" : "",
+            border: cover === 6 ? ".8vw solid white" : "",
+            background: cover < 6 ? `url(cards/Score/${cover}${type}.png)` : "",
+            backgroundSize: cover < 6 ? "cover" : "",
+          }}
+        >
+          {classCards === "trump" && <div className="title">Show</div>}
+        </div>
+        {/* <p className="text">{classCards}</p> */}
       </div>
-      <p className="text">{classCards}</p>
-    </div>
+    </>
   );
 };
 

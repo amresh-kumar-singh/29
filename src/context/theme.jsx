@@ -8,6 +8,10 @@ export default function GameThemeProvider({ children }) {
   const [theme, setTheme] = useStorage("29-card-game", {
     table: gradient.Dusty_Grass,
     card: "one",
+    scoreboard: {
+      background: "292826",
+      color: "F9D342",
+    },
   });
 
   return (

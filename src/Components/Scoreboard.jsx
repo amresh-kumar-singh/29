@@ -1,38 +1,31 @@
+import { Typography } from "@mui/material";
 import { GameState } from "../context/game";
+import { ThemeState } from "../context/theme";
 import playersArr from "../utils/playersArr";
+import "./component.css";
+
 const Scoreboard = () => {
   const { opponentTeam, yourTeam, call } = GameState();
+  const { theme } = ThemeState();
+  console.log();
   return (
     <div
+      className="scoreboard"
       style={{
-        zIndex: 5,
-        position: "absolute",
-        left: "2%",
-        background: "black",
-        opacity: "0.5",
-        color: "white",
-        padding: "10px 20px",
-        top: "1%",
-        borderRadius: "20%",
+        background: "#" + theme.scoreboard.background,
+        color: "#" + theme.scoreboard.color,
       }}
     >
-      <p
-        style={{
-          margin: "0",
-          marginBottom: "10px",
-          textDecoration: "underline",
-          fontSize: "1.2em",
-        }}
-      >
-        Points
-      </p>
+      <Typography variant="h6">Points</Typography>
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <span>You Team: {yourTeam.point}</span>
-        <span>Opponent: {opponentTeam.point} </span>
+        <Typography variant="body1">You Team: {yourTeam.point}</Typography>
+        <Typography variant="body1">Opponent: {opponentTeam.point} </Typography>
         {call.call >= 0 && (
-          <span style={{ fontSize: "20px", borderTop: "2px solid pink" }}>
+          <Typography
+            sx={{ borderTop: "2px solid pink", textTransform: "uppercase" }}
+          >
             {playersArr[call?.caller]}: {call?.call}
-          </span>
+          </Typography>
         )}
       </div>
     </div>

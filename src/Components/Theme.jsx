@@ -1,13 +1,12 @@
 import * as React from "react";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
-import StyleIcon from "@mui/icons-material/Style";
 
-import Accord from "../Theme/Accord";
 import { Divider } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { ThemeState } from "../../context/theme";
-import "./button.css";
+import { ThemeState } from "../context/theme";
+import { lazy } from "react";
+const Accord = lazy(() => import("./Theme/Accord"));
 
 export default function TableStyle() {
   const { setTheme } = ThemeState();
@@ -27,8 +26,8 @@ export default function TableStyle() {
   return (
     <div>
       <React.Fragment>
-        <button
-          className="button noselect"
+        <Button
+          variant="contained"
           onClick={toggleDrawer()}
           // variant="contained"
           // endIcon={<StyleIcon />}
@@ -41,14 +40,15 @@ export default function TableStyle() {
           }}
         >
           Theme
-        </button>
+        </Button>
         <Drawer anchor="right" open={state} onClose={() => setState(false)}>
-          {/* {list()} */}
           <Button sx={{}} onClick={toggleDrawer()} endIcon={<CloseIcon />}>
-            Table Theme
+            Theme
           </Button>
           <Divider />
-          <Accord setTheme={setTheme} />
+          <React.Suspense fallback="<div>Loading...</div>">
+            <Accord setTheme={setTheme} />
+          </React.Suspense>
         </Drawer>
       </React.Fragment>
     </div>

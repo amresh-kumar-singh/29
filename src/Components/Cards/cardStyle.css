@@ -1,12 +1,4 @@
-.wrapper {
-  text-align: center;
-  position: absolute;
-  top: 50%;
-  left: 7%;
-}
-
 .pattern {
-  /* margin: 10px; */
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -133,33 +125,40 @@
 /* Table Cards */
 .opponent {
   left: 24%;
-  box-shadow: -2px 2px 0 -1px white, -2px 2px black !important;
 }
 .player {
   right: 25%;
-  box-shadow: -2px 2px 0 -1px white, -2px 2px black !important;
 }
 .trump {
   left: 18%;
-  box-shadow: -2px 2px 0 -1px white, -2px 2px black, -4px 4px 0 -1px white,
-    -4px 4px black, -6px 6px 0 -1px white, -6px 6px black, -8px 8px 0 -1px white,
-    -8px 8px black !important;
+  border-radius: 4px;
+  box-shadow: -2px 4px 0 -1px white, -2px 4px rgb(40, 37, 37),
+    -4px 6px 0 -1px white, -4px 6px rgb(40, 37, 37), -6px 8px 0 -1px white,
+    -6px 8px rgb(40, 37, 37), -8px 10px 0 -1px white, -8px 10px rgb(40, 37, 37) !important;
 }
 .text {
-  color: black;
-  font-size: 1em;
+  color: white;
+  font-size: calc(10px + 1vmin);
   font-family: "Inter", sans-serif;
   font-weight: 500;
-  top: -25%;
-  left: 25%;
+  top: 30%;
+  z-index: 11;
+  left: 50%;
+  /* transform: translate(-50%, -50%); */
   text-transform: capitalize;
+  mix-blend-mode: exclusion;
   position: absolute;
-  text-shadow: rgb(254 242 246) -0.0075em 0.0075em 0px,
-    rgb(246 165 193) 0.005em 0.005em 0px, rgb(247 170 196) 0.01em 0.01em 0px,
-    rgb(247 174 199) 0.015em 0.015em, rgb(248 179 202) 0.02em 0.02em 0px,
-    rgb(248 183 205) 0.025em 0.025em 0px, rgb(248 188 208) 0.03em 0.03em 0px,
-    rgb(249 192 211) 0.035em 0.035em 0px;
 }
+.trumpText {
+  left: 65%;
+}
+.playerText {
+  left: 10%;
+}
+.opponentText {
+  left: 82%;
+}
+
 .card {
   position: relative;
   height: 24vh;
@@ -184,5 +183,18 @@
 .score5 {
   top: 65% !important;
   left: 52% !important;
+}
+
+@media only screen and (max-width: 720px) {
+  .text {
+    top: 27%;
+    font-size: small;
+    transform: translate(-16%, 0);
+  }
+}
+@media screen and (orientation: portrait) {
+  .card {
+    height: 24vw;
+  }
 }
 /* STYLES - END */

@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import TableTheme from "./TableTheme";
 import CardTheme from "./CardTheme";
+import ScoreboardTheme from "./ScoreboardTheme";
 
 export default function Accord() {
   const [expanded, setExpanded] = React.useState("");
@@ -54,6 +55,22 @@ export default function Accord() {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel3a-content"
           id="panel3a-header"
+        >
+          <Typography>Scoreoard theme</Typography>
+        </AccordionSummary>
+        <AccordionDetails sx={{ padding: 0, margin: 0 }}>
+          <ScoreboardTheme />
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion
+        expanded={expanded === "panel4"}
+        onChange={handleChange("panel4")}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel4a-content"
+          id="panel4a-header"
         >
           <Typography>Background</Typography>
         </AccordionSummary>

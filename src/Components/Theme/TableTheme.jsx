@@ -1,6 +1,5 @@
 import { List, ListItem, ListItemButton, Typography } from "@mui/material";
 import gradient from "../../utils/gradient";
-import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
 import { ThemeState } from "../../context/theme";
 
 const TableTheme = () => {
@@ -22,7 +21,9 @@ const TableTheme = () => {
               })
             }
           >
-            <Typography>{name.replaceAll("_", " ")}</Typography>
+            <Typography sx={{ mixBlendMode: "diffrent" }}>
+              {name.replaceAll("_", " ")}
+            </Typography>
             {theme.table === color && (
               <Typography
                 variant="h5"

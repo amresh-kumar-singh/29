@@ -10,29 +10,153 @@
   }
 }
 .auction {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  /* grid-template-rows: auto [last-line]; */
-  padding: 10px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* height: 20vh; */
-  width: 20vw;
+  font-family: monospace;
+  width: 20% !important;
+  height: 25% !important;
   background-color: aqua;
+  text-transform: capitalize;
+}
+.auction span:last-child {
+  margin-left: 4% !important;
 }
 .auction span {
-  padding: 5px;
-  margin: 5px;
+  padding: 0 !important;
+  margin: 5px !important;
   border: 2px solid black;
   font-size: large;
   font-weight: 600;
   cursor: pointer;
   background-color: antiquewhite;
   border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .auction .visited {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.avatar-west {
+  left: 0%;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+.avatar-north {
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.avatar-east {
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%);
+}
+.avatar-text {
+  background: black;
+  position: absolute;
+  color: white;
+  bottom: -2%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 100%;
+  text-transform: capitalize;
+  padding: 3%;
+  font-family: sans-serif;
+  letter-spacing: 0.1em;
+}
+.avatar {
+  width: 10%;
+  height: 20%;
+  position: absolute;
+  z-index: 5;
+  background: black;
+  border: 5px solid darkgrey;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.scoreboard {
+  z-index: 5;
+  position: absolute;
+  left: 2%;
+  padding: 10px 20px;
+  top: 1%;
+  border-radius: 20%;
+}
+
+.south {
+  position: absolute;
+  bottom: 0%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  width: fit-content;
+  height: 24vh;
+}
+.north {
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  height: 12%;
+  width: fit-content;
+}
+.west {
+  position: absolute;
+  left: 5%;
+  top: 5% !important;
+  height: 15%;
+  width: fit-content;
+  transform-origin: left;
+  transform: rotate(90deg) translate(0px, -50%);
+}
+.east {
+  position: absolute;
+  right: -12%;
+  top: 50%;
+  height: 12%;
+  width: fit-content;
+  transform: rotate(-90deg) translate(0%, -10%);
+}
+
+@media only screen and (max-width: 720px) {
+  .scoreboard {
+    padding: 5px 10px;
+    top: 0;
+    left: 0;
+    border-radius: 0% 21% 0% 20%;
+  }
+  .scoreboard p {
+    font-size: small;
+  }
+  .scoreboard h6 {
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+  .avatar {
+    width: 11%;
+  }
+  .avatar-text {
+    letter-spacing: 0;
+    bottom: -10%;
+    font-size: 0.7em;
+  }
+  .auction span {
+    border: 1px solid black;
+    margin: 4px !important;
+  }
+  .auction {
+    top: 56%;
+    left: 55%;
+    width: 40% !important;
+    height: 48% !important;
+  }
+}
+@media screen and (orientation: portrait) {
+  .south {
+    height: 24vw !important;
+  }
 }

@@ -18,6 +18,7 @@ const rotate = {
   west: {
     position: "absolute",
     left: "0%",
+    top: "0%",
     height: "12%",
     width: "fit-content",
     transformOrigin: "left",

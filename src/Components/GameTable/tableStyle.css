@@ -1,13 +1,28 @@
 .table {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 92vh;
+  width: 135vh;
+  box-shadow: 0px 0px 10px inset, 0px 49px 49px;
+  border-radius: 50%;
+}
+@media screen and (orientation: portrait) {
+  .table {
+    height: 92vw;
+    width: 135vw;
+  }
+}
+.table-cards {
   height: 40vh;
   width: 40vh;
-  background-color: black;
+  /* background-color: rgba(0, 0, 0, 0.2); */
   z-index: 5;
   position: absolute;
   top: 50%;
-  left: 40%;
+  left: 42%;
   transform: translate(-50%, -50%);
-  opacity: 0.2;
 }
 
 .west {

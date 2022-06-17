@@ -1,5 +1,5 @@
 import PlayerCards from "./PlayerCards";
-import "./cards.css";
+import "./tableStyle.css";
 import { GameState } from "../../context/game";
 import { useEffect } from "react";
 import useScore from "../../hooks/useScore";
@@ -12,7 +12,7 @@ const TableCards = () => {
   }, [table]);
 
   return (
-    <div className="table">
+    <div className="table-cards">
       {table.map((item, index) => {
         return <PlayerCards card={item} player={index} key={index} />;
       })}

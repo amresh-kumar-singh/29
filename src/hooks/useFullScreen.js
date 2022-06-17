@@ -1,6 +1,5 @@
-const useOrientation = () => {
-  function lock(orientation) {
-    console.log("lock");
+const useFullScreen = () => {
+  function fullscreen() {
     const doc = document.documentElement;
     if (doc.requestFullscreen) {
       doc.requestFullscreen();
@@ -14,7 +13,7 @@ const useOrientation = () => {
     // window.screen.orientation.lock(orientation);
   }
 
-  function unlock() {
+  function exitFullscreen() {
     // window.screen.orientation.unlock();
     console.log("unlock");
     if (document.exitFullscreen) {
@@ -27,8 +26,7 @@ const useOrientation = () => {
       document.msExitFullscreen();
     }
   }
-
-  return { lock, unlock };
+  return { fullscreen, exitFullscreen };
 };
 
-export default useOrientation;
+export default useFullScreen;

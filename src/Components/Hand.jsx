@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-// import Stack from "@mui/material/Stack";
-// import ImageListItem from "@mui/material/ImageListItem";
 import { ImageListItem, Stack } from "@mui/material";
 import useTurn from "../hooks/useTurn";
 import { GameState } from "../context/game";
@@ -41,11 +39,10 @@ export default function Hand({ player }) {
   return (
     <Stack
       direction={"row"}
+      className={playersArr[player]}
       sx={{
-        width: "55%",
         zIndex: "2",
-        // ...style,
-        ...rotate[playersArr[player]],
+        // ...rotate[playersArr[player]],
       }}
     >
       {(players[playersArr[player]].length
