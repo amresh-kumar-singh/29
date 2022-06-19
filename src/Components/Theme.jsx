@@ -46,7 +46,7 @@ export default function TableStyle() {
             Theme
           </Button>
           <Divider />
-          <React.Suspense fallback="<div>Loading...</div>">
+          <React.Suspense fallback="Loading...">
             <Accord setTheme={setTheme} />
           </React.Suspense>
         </Drawer>

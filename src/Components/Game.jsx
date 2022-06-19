@@ -12,30 +12,18 @@ import Scoreboard from "./Scoreboard";
 import Auction from "./Auction";
 import { useState } from "react";
 import PlayerAvatar from "./PlayerAvatar";
-
 import useDevice from "../hooks/useDevice";
-import useFullScreen from "../hooks/useFullScreen";
-import FullscreenIcon from "@mui/icons-material/Fullscreen";
-import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
+
+import Fullscreen from "./Controls/Fullscreen";
+import PWA from "./Controls/PWA";
 
 const Game = () => {
   const { gameCards, players } = GameState();
   const deal = useDeal();
   const shuffle = useShuffle();
   const [displayAuction, setDisplayAuction] = useState(0);
-  const { fullscreen, exitFullscreen } = useFullScreen();
-  const [screenStatus, setScreenStatus] = useState(false);
   const deviceType = useDevice();
 
-  const handleScreenStatus = () => {
-    if (screenStatus) {
-      setScreenStatus(false);
-      exitFullscreen();
-    } else {
-      setScreenStatus(true);
-      fullscreen("landscape");
-    }
-  };
   const handleShuffle = () => {
     shuffle();
   };
@@ -72,18 +60,8 @@ const Game = () => {
           Deal
         </Button>
 
-        {deviceType === "Mobile" && (
-          <Button
-            variant="contained"
-            onClick={handleScreenStatus}
-            color="secondary"
-            size="large"
-            sx={{ position: "absolute", top: "12%", right: "1%" }}
-          >
-            {screenStatus ? <FullscreenExitIcon /> : <FullscreenIcon />}
-          </Button>
-        )}
-
+        {deviceType === "Mobile" && <Fullscreen />}
+        <PWA />
         <Scoreboard />
         <PlayerAvatar imgSrc="g2" orientation="north" />
         <PlayerAvatar imgSrc="g3" orientation="east" />
