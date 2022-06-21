@@ -12,7 +12,7 @@ const PlayerCards = ({ player, card }) => {
 
   return (
     <div
-      style={{ zIndex: zIndex, height: "24vh" }}
+      style={{ zIndex: zIndex, height: "24vmin" }}
       className={playersArr[player]}
     >
       <img

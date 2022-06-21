@@ -19,6 +19,7 @@ export default function GameProvider({ children }) {
   const [call, setCall] = useState({ call: -1, caller: -1 }); //authion and bid
   const [dealer, setDealer] = useState(0);
   const [initialPlayer, setInitialPlayer] = useState(0);
+  const [color, setColor] = useState("");
   console.log(dealer, initialPlayer);
 
   useEffect(() => {
@@ -28,6 +29,8 @@ export default function GameProvider({ children }) {
   return (
     <Game.Provider
       value={{
+        color,
+        setColor,
         gameCards,
         setGameCards,
         scoreCards,

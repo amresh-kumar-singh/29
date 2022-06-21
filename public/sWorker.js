@@ -36,6 +36,7 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(
     fetch(event.request)
       .then((res) => {
+        // console.log(event.request);
         let resClone = res.clone();
         caches.open(cacheName).then((cache) => {
           cache.put(event.request, resClone);

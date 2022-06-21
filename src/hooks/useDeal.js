@@ -36,7 +36,7 @@ const useDeal = () => {
     } else if (round === 2) {
       setGameCards([]);
       setRound(1);
-      return 2;
+      return 0; // Changed it from 2 to 0
     }
   }
 

@@ -8,12 +8,7 @@
   box-shadow: 0px 0px 10px inset, 0px 49px 49px;
   border-radius: 50%;
 }
-@media screen and (orientation: portrait) {
-  .table {
-    height: 92vw;
-    width: 135vw;
-  }
-}
+
 .table-cards {
   height: 40vh;
   width: 40vh;
@@ -49,4 +44,14 @@
   top: 0;
   transform: translate(-50%, 0%);
   left: 50%;
+}
+@media screen and (orientation: portrait) {
+  .table {
+    height: 92vw;
+    width: 135vw;
+  }
+  .table-cards {
+    height: 40vw;
+    width: 40vw;
+  }
 }

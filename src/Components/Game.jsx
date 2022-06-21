@@ -16,6 +16,7 @@ import useDevice from "../hooks/useDevice";
 
 import Fullscreen from "./Controls/Fullscreen";
 import PWA from "./Controls/PWA";
+import Color from "./Color";
 
 const Game = () => {
   const { gameCards, players } = GameState();
@@ -23,7 +24,7 @@ const Game = () => {
   const shuffle = useShuffle();
   const [displayAuction, setDisplayAuction] = useState(0);
   const deviceType = useDevice();
-
+  console.log(displayAuction);
   const handleShuffle = () => {
     shuffle();
   };
@@ -41,7 +42,7 @@ const Game = () => {
 
         <GameTable />
         <Theme />
-
+        {/* Suffle */}
         <Button
           variant="contained"
           onClick={handleShuffle}
@@ -50,7 +51,7 @@ const Game = () => {
         >
           Shuffle
         </Button>
-
+        {/* Deal */}
         <Button
           variant="contained"
           onClick={handleDeal}
@@ -69,6 +70,10 @@ const Game = () => {
 
         {displayAuction === 1 && (
           <Auction setDisplayAuction={setDisplayAuction} />
+        )}
+
+        {displayAuction === 2 && (
+          <Color setDisplayAuction={setDisplayAuction} />
         )}
       </Box>
     </GameThemeProvider>

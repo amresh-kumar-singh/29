@@ -185,7 +185,7 @@
   left: 52% !important;
 }
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 920px) {
   .text {
     top: 27%;
     font-size: small;
@@ -196,5 +196,8 @@
   .card {
     height: 24vw;
   }
+  /* .text {
+    top: 27%;
+  } */
 }
 /* STYLES - END */

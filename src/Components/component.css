@@ -89,7 +89,7 @@
   border-radius: 20%;
 }
 
-.south {
+.player-south {
   position: absolute;
   bottom: 0%;
   left: 50%;
@@ -97,7 +97,7 @@
   width: fit-content;
   height: 24vh;
 }
-.north {
+.player-north {
   position: absolute;
   top: 0%;
   left: 50%;
@@ -105,7 +105,7 @@
   height: 12%;
   width: fit-content;
 }
-.west {
+.player-west {
   position: absolute;
   left: 5%;
   top: 5% !important;
@@ -114,9 +114,9 @@
   transform-origin: left;
   transform: rotate(90deg) translate(0px, -50%);
 }
-.east {
+.player-east {
   position: absolute;
-  right: -12%;
+  right: 1%;
   top: 50%;
   height: 12%;
   width: fit-content;
@@ -171,7 +171,7 @@
   }
 }
 @media screen and (orientation: portrait) {
-  .south {
+  .player-south {
     height: 24vw !important;
   }
   .MuiSnackbar-root {

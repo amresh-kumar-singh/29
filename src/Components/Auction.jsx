@@ -32,7 +32,7 @@ const Auction = ({ setDisplayAuction }) => {
       }
       // Unmoundt Auction component
       console.log("Bidding Done");
-      setDisplayAuction(0);
+      setDisplayAuction(2);
       return;
     }
     if (call.call < 16) {

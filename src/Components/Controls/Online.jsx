@@ -33,11 +33,13 @@ const Alert = forwardRef(function Alert(props, ref) {
 });
 
 const Online = () => {
+  // const [seveary, setOpen] = useState(false);
   const [status, setStatus] = useState(() => {
     return window.navigator.onLine ? "" : "Your Currently Offline";
   });
-  //   const [open, setOpen] = useState(false);
+
   useEffect(() => {
+    // status && setOpen(true);
     window.addEventListener("online", onlineStatus);
     window.addEventListener("offline", offlineStatus);
     window?.navigator?.serviceWorker?.addEventListener("message", sWMessage);
@@ -55,6 +57,7 @@ const Online = () => {
     function offlineStatus() {
       navigator?.serviceWorker?.controller?.postMessage({ checkOnline: true });
     }
+    // Clean up of Event listner
     return () => {
       window.removeEventListener("online", onlineStatus);
       window.removeEventListener("offline", offlineStatus);
@@ -70,7 +73,9 @@ const Online = () => {
       return;
     }
     setStatus("");
+    // setOpen(false);
   };
+
   return (
     <div>
       <Snackbar
@@ -83,7 +88,7 @@ const Online = () => {
       >
         <Alert
           severity={status.includes("Online") ? "success" : "error"}
-          sx={{ width: "100%" }}
+          sx={{ width: "100%", [!status && "visibility"]: "hidden" }}
         >
           {status}
         </Alert>

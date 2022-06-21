@@ -39,7 +39,7 @@ export default function Hand({ player }) {
   return (
     <Stack
       direction={"row"}
-      className={playersArr[player]}
+      className={"player-" + playersArr[player]}
       sx={{
         zIndex: "2",
         // ...rotate[playersArr[player]],
