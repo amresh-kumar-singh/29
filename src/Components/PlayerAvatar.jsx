@@ -5,7 +5,7 @@ import "./component.css";
 
 const PlayerAvatar = ({ imgSrc, orientation }) => {
   const { theme } = ThemeState();
-  const { initialPlayer } = GameState();
+  const { initialPlayer, currentPlayer } = GameState();
 
   return (
     <div
@@ -13,7 +13,7 @@ const PlayerAvatar = ({ imgSrc, orientation }) => {
       style={{
         backgroundSize: "cover",
         backgroundImage: `url(avatar/${imgSrc}.svg)`,
-        borderColor: playersArr[initialPlayer] === orientation && "#7CFC00",
+        borderColor: playersArr[currentPlayer] === orientation && "#7CFC00",
       }}
     >
       <p

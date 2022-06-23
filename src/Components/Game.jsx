@@ -24,7 +24,7 @@ const Game = () => {
   const shuffle = useShuffle();
   const [displayAuction, setDisplayAuction] = useState(0);
   const deviceType = useDevice();
-  console.log(displayAuction);
+
   const handleShuffle = () => {
     shuffle();
   };

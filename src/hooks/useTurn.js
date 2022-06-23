@@ -2,7 +2,7 @@ import { GameState } from "../context/game";
 import playersArr from "../utils/playersArr";
 
 const useTurn = () => {
-  const { setTable, setPlayers } = GameState();
+  const { setTable, setPlayers, setCurrentPlayer } = GameState();
 
   function turn(player = 0, card) {
     setTable((prev) => {
@@ -10,7 +10,8 @@ const useTurn = () => {
       prev[player] = card;
       return [...prev];
     });
-
+    // setInitialPlayer((player + 1) % 4);
+    setCurrentPlayer((player + 1) % 4);
     setPlayers((prev) => {
       return {
         ...prev,

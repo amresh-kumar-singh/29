@@ -32,7 +32,7 @@ export default function Hand({ player }) {
       if (player === initialPlayer) {
         turn(player, item);
       }
-      // console.log("not YOur turn: ", playersArr[player]);
+      // console.log("not Your turn: ", playersArr[player]);
     }
   };
 

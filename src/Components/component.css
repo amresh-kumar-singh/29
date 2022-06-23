@@ -74,7 +74,7 @@
   /* height: 20%; */
   aspect-ratio: 1;
   position: absolute;
-  z-index: 5;
+  z-index: 1;
   background: black;
   border: 5px solid darkgrey;
   border-radius: 50%;
