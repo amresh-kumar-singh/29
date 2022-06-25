@@ -10,6 +10,7 @@ const useScore = () => {
     call,
     setTable,
     setOpponentTeam,
+    setCurrentPlayer,
     setYourTeam,
     initialPlayer,
     setInitialPlayer,
@@ -21,21 +22,15 @@ const useScore = () => {
     players,
     setPlayers,
     setCall,
+    setColor,
+    color,
   } = GameState();
 
   // Change of Score Put all cards in gameCards
 
   function newGame() {
-    // console.log(
-    //   players[playersArr[(dealer + 1) % 4]],
-    //   players[playersArr[(dealer + 2) % 4]],
-    //   players[playersArr[(dealer + 3) % 4]],
-    //   players[playersArr[(dealer + 4) % 4]],
-    //   "prev dealer:",
-    //   dealer
-    // );
     console.log("New Game started");
-    // return;
+
     setGameCards((prev) => {
       return [
         ...prev,
@@ -48,12 +43,10 @@ const useScore = () => {
     setPlayers({ south: [], north: [], east: [], west: [] });
     setDealer((prev) => (prev + 1) % 4);
     setCall({ call: -1, caller: -1 });
+    setColor("");
     // setInitialPlayer((prev) => (dealer + 1) % 4);
   }
 
-  // useEffect(() => {
-  //   newGame();
-  // }, [opponentTeam.score, yourTeam.score]);
   useEffect(() => {
     //Players game
     if (call.caller === 0 || call.caller === 2) {
@@ -134,17 +127,28 @@ const useScore = () => {
     // eslint-disable-next-line
   }, [opponentTeam.point, yourTeam.point]);
 
-  //Calculating Points------------------------------------------
+  //--------------------------------Calculating Points---------------------------------
   function score() {
     if (table.filter((item) => item).length === 4) {
       let winner = 0;
       let tempWinner = -1;
+      let colorStatus = false;
       let temp = table.reduce((acc, item, i) => {
+        colorStatus = item[1] === color[1];
         if (
+          !colorStatus &&
           arr.indexOf(item[0]) > tempWinner &&
           table[initialPlayer][1] === item[1]
         ) {
           tempWinner = arr.indexOf(item[0]);
+          winner = i;
+        }
+        if (
+          colorStatus &&
+          item[1] === color[1] &&
+          arr.indexOf(item[0]) + 8 > tempWinner
+        ) {
+          tempWinner = arr.indexOf(item[0]) + 8;
           winner = i;
         }
         return points[item[0]] + acc;
@@ -165,11 +169,13 @@ const useScore = () => {
           };
         });
       }
-      //   setPoint((prev) => prev + temp);
-      setInitialPlayer(winner);
-      setGameCards((prev) => [...prev, ...table]);
       setTable([]);
-      // console.log(winner, initialPlayer);
+      setGameCards((prev) => [...prev, ...table]);
+      if (winner === initialPlayer) {
+        setCurrentPlayer(winner);
+      }
+      setInitialPlayer(winner);
+      console.log(winner, initialPlayer);
     }
   }
 

@@ -1,4 +1,3 @@
-import CardsPattern from "../Cards/CardsPattern";
 import { ThemeState } from "../../context/theme";
 import TableCards from "./TableCards";
 import "./tableStyle.css";
@@ -16,9 +15,6 @@ const GameTable = () => {
         backgroundImage: `linear-gradient(${theme.table})`,
       }}
     >
-      {/* <CardsPattern classCards="player" />
-      <CardsPattern classCards="trump" />
-      <CardsPattern classCards="opponent" /> */}
       <PlayerScore />
       <Trump />
       <OpponentScore />

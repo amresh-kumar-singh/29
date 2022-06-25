@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { flushSync } from "react-dom";
 import useStorage from "../hooks/useStorage";
 import cards from "../utils/cards";
 const Game = createContext();
@@ -14,21 +15,30 @@ export default function GameProvider({ children }) {
   const [scoreCards, SetScoreCards] = useState(game.score);
   const [table, setTable] = useState(game.table);
   const [players, setPlayers] = useState(game.players);
-  const [yourTeam, setYourTeam] = useState({ point: 6, score: 17 });
-  const [opponentTeam, setOpponentTeam] = useState({ point: 0, score: -15 });
-  const [call, setCall] = useState({ call: -1, caller: -1 }); //authion and bid
+  const [yourTeam, setYourTeam] = useState({ point: 0, score: 6 });
+  const [opponentTeam, setOpponentTeam] = useState({ point: 0, score: 4 });
+  const [call, setCall] = useState({ call: -1, caller: -1 }); //auction and bid
   const [dealer, setDealer] = useState(0);
   const [initialPlayer, setInitialPlayer] = useState(0);
   const [color, setColor] = useState("");
   const [currentPlayer, setCurrentPlayer] = useState(initialPlayer);
   // console.log(dealer, initialPlayer);
+  // const bot = useBot();
 
   useEffect(() => {
     setInitialPlayer((dealer + 1) % 4);
   }, [dealer]);
+
   useEffect(() => {
+    // flushSync(() => {
+    // setTable([]);
+    // });
+    console.log("from inital player: change", currentPlayer, initialPlayer);
     setCurrentPlayer(initialPlayer);
   }, [initialPlayer]);
+
+  //Bot
+
   // console.log(players, "player");
   return (
     <Game.Provider

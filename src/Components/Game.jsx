@@ -10,7 +10,7 @@ import useShuffle from "../hooks/useShuffle";
 import useDeal from "../hooks/useDeal";
 import Scoreboard from "./Scoreboard";
 import Auction from "./Auction";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PlayerAvatar from "./PlayerAvatar";
 import useDevice from "../hooks/useDevice";
 
@@ -19,7 +19,7 @@ import PWA from "./Controls/PWA";
 import Color from "./Color";
 
 const Game = () => {
-  const { gameCards, players } = GameState();
+  const { gameCards, players, color } = GameState();
   const deal = useDeal();
   const shuffle = useShuffle();
   const [displayAuction, setDisplayAuction] = useState(0);
@@ -28,11 +28,13 @@ const Game = () => {
   const handleShuffle = () => {
     shuffle();
   };
-
+  console.log(gameCards.length);
   const handleDeal = () => {
     setDisplayAuction(deal());
   };
-
+  useEffect(() => {
+    color && deal();
+  }, [color]);
   return (
     <GameThemeProvider>
       <Box sx={{ position: "relative", height: "100vh", width: "100vw" }}>
@@ -56,7 +58,8 @@ const Game = () => {
           variant="contained"
           onClick={handleDeal}
           sx={{ zIndex: 3 }}
-          disabled={gameCards.length === 0}
+          // disabled={gameCards.length === 0 }
+          disabled={gameCards.length !== 32}
         >
           Deal
         </Button>
