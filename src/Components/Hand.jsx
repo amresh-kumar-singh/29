@@ -15,22 +15,22 @@ export default function Hand({ player }) {
   const turn = useTurn();
   const [error, setError] = useState(false);
   const bot = useBot();
-  useEffect(() => {
-    console.log("inside bot useffect", currentPlayer, initialPlayer, table);
-    if (
-      currentPlayer !== 0 &&
-      table !== undefined &&
-      players[playersArr[currentPlayer]].length !== 0 &&
-      !table[currentPlayer]
-    ) {
-      console.log(currentPlayer);
-      timer.current = setTimeout(() => {
-        bot(currentPlayer);
-      }, 1500);
-    }
-    return () => clearTimeout(timer.current);
-    //what if current player is same as initial player
-  }, [currentPlayer]);
+  // useEffect(() => {
+  //   console.log("inside bot useffect", currentPlayer, initialPlayer, table);
+  //   if (
+  //     currentPlayer !== 0 &&
+  //     table !== undefined &&
+  //     players[playersArr[currentPlayer]].length !== 0 &&
+  //     !table[currentPlayer]
+  //   ) {
+  //     console.log(currentPlayer);
+  //     timer.current = setTimeout(() => {
+  //       bot(currentPlayer);
+  //     }, 1500);
+  //   }
+  //   return () => clearTimeout(timer.current);
+  //   //what if current player is same as initial player
+  // }, [currentPlayer]);
 
   const handleClick = (player, item) => {
     setError(false);

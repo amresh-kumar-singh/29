@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { GameState } from "../context/game";
 import playersArr from "../utils/playersArr";
 import points from "../utils/points";
@@ -25,7 +25,7 @@ const useScore = () => {
     setColor,
     color,
   } = GameState();
-
+  const [winner, setWinner] = useState(null);
   // Change of Score Put all cards in gameCards
 
   function newGame() {
@@ -44,6 +44,7 @@ const useScore = () => {
     setDealer((prev) => (prev + 1) % 4);
     setCall({ call: -1, caller: -1 });
     setColor("");
+    setTable(null);
     // setInitialPlayer((prev) => (dealer + 1) % 4);
   }
 
@@ -169,13 +170,10 @@ const useScore = () => {
           };
         });
       }
-      setTable([]);
-      setGameCards((prev) => [...prev, ...table]);
-      if (winner === initialPlayer) {
-        setCurrentPlayer(winner);
-      }
-      setInitialPlayer(winner);
+      setTable((prev) => []);
       console.log(winner, initialPlayer);
+      setInitialPlayer((prev) => winner);
+      setGameCards((prev) => [...prev, ...table]);
     }
   }
 

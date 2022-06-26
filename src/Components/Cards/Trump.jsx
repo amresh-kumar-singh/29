@@ -14,7 +14,7 @@ const Trump = () => {
   const handleShow = () => {
     //TODO player is current player also for
     if (
-      players[playersArr[currentPlayer]].filter(
+      players[playersArr[currentPlayer[0]]].filter(
         (item) => item[1] === (table.length && table[initialPlayer][1])
       ).length === 0
     ) {

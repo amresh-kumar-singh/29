@@ -18,20 +18,32 @@ let timer;
 const useBot = () => {
   const { table, color, players, initialPlayer, currentPlayer } = GameState();
   const turn = useTurn();
+
   // Make a function for possible cards to play
   const bot = (player) => {
-    console.log(table, "from bot");
+    if (table.filter((item) => item).length === 4) {
+      console.log("Table is Full");
+      return player;
+    }
+    console.log(table, "from bot", "for Player:", player);
     const handCards = players[playersArr[player]];
     if (table.length === 0) {
-      console.log("Initial Play: ", handCards[0]);
+      console.log("Initial Play: ", handCards[0], "By Player: ", player);
       //Just for testing
       turn(player, handCards[0]);
-      return;
+      return player;
     }
     //Our table has some defect logic table .initial player location can be empty
     // lets make table object
     const gameCard = table[initialPlayer];
-    console.log(" in", initialPlayer, "gamecard", gameCard, "player", player);
+    console.log(
+      "Initial Player:",
+      initialPlayer,
+      "gamecard: ",
+      gameCard,
+      "player: ",
+      player
+    );
     const playerGameCards = handCards.filter((item) => gameCard[1] === item[1]);
     // const priority = (player + initialPlayer)/2===0
 
@@ -77,9 +89,9 @@ const useBot = () => {
           ? playerMax
           : playerMin;
     }
-    console.log("going to paly: ", _playCard);
+    console.log("Player: ", player, "going to paly: ", _playCard);
     turn(player, _playCard);
-    return;
+    return player;
   };
 
   // useEffect(() => {

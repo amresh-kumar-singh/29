@@ -4,9 +4,11 @@ import "./tableStyle.css";
 import Trump from "../Cards/Trump";
 import PlayerScore from "../Cards/PlayerScore";
 import OpponentScore from "../Cards/OpponentScore";
+import { GameState } from "../../context/game";
 
 const GameTable = () => {
   const { theme } = ThemeState();
+  const { table } = GameState();
 
   return (
     <div
@@ -19,7 +21,7 @@ const GameTable = () => {
       <Trump />
       <OpponentScore />
 
-      <TableCards />
+      {table !== null && <TableCards />}
     </div>
   );
 };

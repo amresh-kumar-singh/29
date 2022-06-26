@@ -14,10 +14,11 @@ const useTurn = () => {
     // when table length is four both use turn and useScore setCurrent player
     //useScore setInitial player that in turn sets current player
     console.log(table, "tabel from use turn");
-    // if (table.filter((item) => item).length !== 4 || player === 0) {
     // if (table.filter((item) => item).length !== 4) {
-    //   console.log("inside if");
-    setCurrentPlayer((prev) => (player + 1) % 4);
+    //   //if table 3 than fourth
+    //   // if (table.filter((item) => item).length !== 4) {
+    //   console.log("Table If: ", table);
+    //   setCurrentPlayer((prev) => (player + 1) % 4);
     // }
     setPlayers((prev) => {
       return {

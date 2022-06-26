@@ -10,7 +10,7 @@ const TableCards = () => {
   useEffect(() => {
     score();
   }, [table]);
-
+  // if (table === null) return;
   return (
     <div className="table-cards">
       {table.map((item, index) => {

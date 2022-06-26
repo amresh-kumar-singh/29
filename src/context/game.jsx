@@ -13,15 +13,15 @@ export default function GameProvider({ children }) {
   });
   const [gameCards, setGameCards] = useState(game.deck);
   const [scoreCards, SetScoreCards] = useState(game.score);
-  const [table, setTable] = useState(game.table);
+  const [table, setTable] = useState(null);
   const [players, setPlayers] = useState(game.players);
   const [yourTeam, setYourTeam] = useState({ point: 0, score: 6 });
   const [opponentTeam, setOpponentTeam] = useState({ point: 0, score: 4 });
   const [call, setCall] = useState({ call: -1, caller: -1 }); //auction and bid
   const [dealer, setDealer] = useState(0);
-  const [initialPlayer, setInitialPlayer] = useState(0);
+  const [initialPlayer, setInitialPlayer] = useState(1);
   const [color, setColor] = useState("");
-  const [currentPlayer, setCurrentPlayer] = useState(initialPlayer);
+  const [currentPlayer, setCurrentPlayer] = useState([initialPlayer]);
   // console.log(dealer, initialPlayer);
   // const bot = useBot();
 
@@ -29,17 +29,22 @@ export default function GameProvider({ children }) {
     setInitialPlayer((dealer + 1) % 4);
   }, [dealer]);
 
+  console.log(initialPlayer, "initail current ", currentPlayer[0]);
+
   useEffect(() => {
-    // flushSync(() => {
-    // setTable([]);
-    // });
-    console.log("from inital player: change", currentPlayer, initialPlayer);
-    setCurrentPlayer(initialPlayer);
-  }, [initialPlayer]);
+    if (table === null || table.filter((item) => item).length === 4) {
+      console.log("length 44444", table);
+      return;
+    }
+    if (table.length === 0) {
+      setCurrentPlayer([initialPlayer]);
+      console.log("table changed--", table);
+    } else {
+      setCurrentPlayer((prev) => [(prev[0] + 1) % 4]);
+      console.log("table changed--", table);
+    }
+  }, [table]);
 
-  //Bot
-
-  // console.log(players, "player");
   return (
     <Game.Provider
       value={{

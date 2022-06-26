@@ -28,7 +28,9 @@ const Game = () => {
   const handleShuffle = () => {
     shuffle();
   };
+
   console.log(gameCards.length);
+
   const handleDeal = () => {
     setDisplayAuction(deal());
   };

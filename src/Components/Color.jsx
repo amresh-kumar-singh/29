@@ -6,10 +6,11 @@ import { GameState } from "../context/game";
 const itemData = ["2C", "2D", "2S", "2H", "red_joker", "7th"];
 
 export default function Color({ setDisplayAuction }) {
-  const { setColor } = GameState();
+  const { setColor, setTable } = GameState();
   const handleColor = (item) => {
     setColor(item);
     setDisplayAuction(0);
+    setTable([]);
     console.log("color", item);
   };
   return (
