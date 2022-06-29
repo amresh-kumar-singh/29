@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { GameState } from "../context/game";
 import playersArr from "../utils/playersArr";
 import points from "../utils/points";
@@ -10,7 +10,6 @@ const useScore = () => {
     call,
     setTable,
     setOpponentTeam,
-    setCurrentPlayer,
     setYourTeam,
     initialPlayer,
     setInitialPlayer,
@@ -23,10 +22,8 @@ const useScore = () => {
     setPlayers,
     setCall,
     setColor,
-    color,
+    color: [colorStatus, colorCard],
   } = GameState();
-  const [winner, setWinner] = useState(null);
-  // Change of Score Put all cards in gameCards
 
   function newGame() {
     console.log("New Game started");
@@ -43,9 +40,11 @@ const useScore = () => {
     setPlayers({ south: [], north: [], east: [], west: [] });
     setDealer((prev) => (prev + 1) % 4);
     setCall({ call: -1, caller: -1 });
-    setColor("");
-    setTable(null);
-    // setInitialPlayer((prev) => (dealer + 1) % 4);
+    setColor([false, ""]);
+
+    setTimeout(() => {
+      setTable([]); //previous was null
+    }, 1000);
   }
 
   useEffect(() => {
@@ -127,17 +126,39 @@ const useScore = () => {
     }
     // eslint-disable-next-line
   }, [opponentTeam.point, yourTeam.point]);
-
+  //Color Score
+  useEffect(() => {
+    if (Math.abs(yourTeam.score) === 6) {
+      setYourTeam((prev) => {
+        return {
+          ...prev,
+          colorScore:
+            prev.score > 0 ? prev.colorScore + 1 : prev.colorScore - 1,
+          score: 0,
+        };
+      });
+    }
+  }, [yourTeam.score]);
+  useEffect(() => {
+    if (Math.abs(opponentTeam.score) === 6) {
+      setOpponentTeam((prev) => {
+        return {
+          ...prev,
+          colorScore:
+            prev.score > 0 ? prev.colorScore + 1 : prev.colorScore - 1,
+          score: 0,
+        };
+      });
+    }
+  }, [opponentTeam.score]);
   //--------------------------------Calculating Points---------------------------------
   function score() {
     if (table.filter((item) => item).length === 4) {
       let winner = 0;
       let tempWinner = -1;
-      let colorStatus = false;
+
       let temp = table.reduce((acc, item, i) => {
-        colorStatus = item[1] === color[1];
         if (
-          !colorStatus &&
           arr.indexOf(item[0]) > tempWinner &&
           table[initialPlayer][1] === item[1]
         ) {
@@ -146,7 +167,7 @@ const useScore = () => {
         }
         if (
           colorStatus &&
-          item[1] === color[1] &&
+          item[1] === colorCard[1] &&
           arr.indexOf(item[0]) + 8 > tempWinner
         ) {
           tempWinner = arr.indexOf(item[0]) + 8;
@@ -170,8 +191,10 @@ const useScore = () => {
           };
         });
       }
-      setTable((prev) => []);
-      console.log(winner, initialPlayer);
+      setTimeout(() => {
+        setTable((prev) => []);
+      }, 1000);
+      console.log("winner:", winner, "InitailPlayer:", initialPlayer);
       setInitialPlayer((prev) => winner);
       setGameCards((prev) => [...prev, ...table]);
     }

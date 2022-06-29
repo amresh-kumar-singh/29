@@ -8,7 +8,7 @@ const itemData = ["2C", "2D", "2S", "2H", "red_joker", "7th"];
 export default function Color({ setDisplayAuction }) {
   const { setColor, setTable } = GameState();
   const handleColor = (item) => {
-    setColor(item);
+    setColor((prev) => [prev[0], item]);
     setDisplayAuction(0);
     setTable([]);
     console.log("color", item);

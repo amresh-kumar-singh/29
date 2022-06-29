@@ -4,13 +4,20 @@ import playersArr from "../../utils/playersArr";
 import CardsPattern from "./CardsPattern";
 
 const Trump = () => {
-  const { players, currentPlayer, initialPlayer, color, table } = GameState();
+  const {
+    players,
+    currentPlayer,
+    initialPlayer,
+    color: [colorStatus, colorCard],
+    setColor,
+    table,
+  } = GameState();
   const [cover, setCover] = useState(null);
 
   useEffect(() => {
-    !color && setCover(null);
-  }, [color]);
-
+    !colorStatus ? setCover(null) : setCover(colorCard);
+  }, [colorStatus]);
+  // console.log("colorStatus:", colorStatus, colorCard);
   const handleShow = () => {
     //TODO player is current player also for
     if (
@@ -18,7 +25,8 @@ const Trump = () => {
         (item) => item[1] === (table.length && table[initialPlayer][1])
       ).length === 0
     ) {
-      setCover(color);
+      // setCover(color[1]);
+      setColor((prev) => [true, prev[1]]);
     }
   };
 

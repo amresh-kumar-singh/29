@@ -3,10 +3,13 @@ import { GameState } from "../context/game";
 import playersArr from "../utils/playersArr";
 
 const useDeal = () => {
-  const { gameCards, setPlayers, setGameCards, dealer } = GameState();
+  const { gameCards, setPlayers, setGameCards, dealer, table } = GameState();
   const [round, setRound] = useState(1);
 
   function deal() {
+    if (table?.length !== 0) {
+      return;
+    }
     setPlayers((prev) => {
       return {
         ...prev,

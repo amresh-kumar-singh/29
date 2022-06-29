@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { GameState } from "../context/game";
 import playersArr from "../utils/playersArr";
 import useTurn from "./useTurn";
@@ -13,10 +12,20 @@ function minMaxCards(array) {
     arr[Math.max(...valueArr)] + array[0][1],
   ];
 }
-let timer;
+
+function JackCount(cards) {
+  // cards can be all cards
+  return cards.filter((item) => item[0] === "J");
+}
 
 const useBot = () => {
-  const { table, color, players, initialPlayer, currentPlayer } = GameState();
+  const {
+    table,
+    color: [colorStatus, colorCard],
+    players,
+    setColor,
+    initialPlayer,
+  } = GameState();
   const turn = useTurn();
 
   // Make a function for possible cards to play
@@ -25,25 +34,32 @@ const useBot = () => {
       console.log("Table is Full");
       return player;
     }
-    console.log(table, "from bot", "for Player:", player);
+
     const handCards = players[playersArr[player]];
+    console.log(table, "Table :: for Player:", player, "has: ", handCards);
     if (table.length === 0) {
-      console.log("Initial Play: ", handCards[0], "By Player: ", player);
-      //Just for testing
-      turn(player, handCards[0]);
+      //Check if Player has JACK
+      const JackCards = JackCount(handCards);
+      // console.log("looking of J", JackCards);
+      if (JackCards.length > 0) {
+        turn(player, JackCards[0]);
+      } else {
+        //Just for testing
+        turn(player, handCards[0]);
+      }
       return player;
     }
     //Our table has some defect logic table .initial player location can be empty
     // lets make table object
     const gameCard = table[initialPlayer];
-    console.log(
-      "Initial Player:",
-      initialPlayer,
-      "gamecard: ",
-      gameCard,
-      "player: ",
-      player
-    );
+    // console.log(
+    //   "Initial Player:",
+    //   initialPlayer,
+    //   "gamecard: ",
+    //   gameCard,
+    //   "player: ",
+    //   player
+    // );
     const playerGameCards = handCards.filter((item) => gameCard[1] === item[1]);
     // const priority = (player + initialPlayer)/2===0
 
@@ -65,16 +81,17 @@ const useBot = () => {
       // check color status if false true !statusColor && setStausColor(true)
       //color card on table
       const _tableColorCards = table.filter(
-        (item) => item && item[1] === color[1]
+        (item) => item && item[1] === colorCard[1]
       );
+      //Color
       const _playerColorCards = handCards.filter(
-        (item) => item[1] === color[1]
+        (item) => item[1] === colorCard[1]
       );
-
-      //Player Doesn't have color
+      !colorStatus && setColor((prev) => [true, prev[1]]);
+      //Player Doesn't have color or color is not shown
       if (_playerColorCards.length === 0) {
         //Testing purpose
-        console.log("colorPlay:", handCards[0]);
+        // console.log("colorPlay:", handCards[0]);
         turn(player, handCards[0]);
         return;
       }
@@ -89,27 +106,10 @@ const useBot = () => {
           ? playerMax
           : playerMin;
     }
-    console.log("Player: ", player, "going to paly: ", _playCard);
+    // console.log("Player: ", player, "going to paly: ", _playCard);
     turn(player, _playCard);
     return player;
   };
-
-  // useEffect(() => {
-  //   console.log("inside bot useffect", currentPlayer, initialPlayer, table);
-  //   if (
-  //     currentPlayer !== 0 &&
-  //     table !== undefined &&
-  //     players[playersArr[currentPlayer]].length !== 0
-  //   ) {
-  //     console.log(currentPlayer);
-  //     timer = setTimeout(() => {
-  //       bot(currentPlayer);
-  //     }, 1500);
-  //   }
-
-  //   return () => clearTimeout(timer);
-  //   //what if current player is same as initial player
-  // }, [currentPlayer]);
 
   return bot;
 };

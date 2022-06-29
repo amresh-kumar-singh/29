@@ -17,26 +17,33 @@ import useDevice from "../hooks/useDevice";
 import Fullscreen from "./Controls/Fullscreen";
 import PWA from "./Controls/PWA";
 import Color from "./Color";
+import useSave from "../hooks/useSave";
+import usePair from "../hooks/usePair";
 
 const Game = () => {
-  const { gameCards, players, color } = GameState();
+  const {
+    gameCards,
+    players,
+    color: [colorStatus, colorCard],
+  } = GameState();
   const deal = useDeal();
   const shuffle = useShuffle();
   const [displayAuction, setDisplayAuction] = useState(0);
   const deviceType = useDevice();
+  usePair();
+  useSave();
 
   const handleShuffle = () => {
     shuffle();
   };
 
-  console.log(gameCards.length);
-
   const handleDeal = () => {
     setDisplayAuction(deal());
   };
+  // Automatically deal when color card is set
   useEffect(() => {
-    color && deal();
-  }, [color]);
+    colorCard && deal();
+  }, [colorCard]);
   return (
     <GameThemeProvider>
       <Box sx={{ position: "relative", height: "100vh", width: "100vw" }}>

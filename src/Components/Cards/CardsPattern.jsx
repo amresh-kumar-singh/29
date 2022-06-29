@@ -6,8 +6,6 @@ import { memo } from "react";
 const CardsPattern = ({ classCards, cover, onClick, src, number }) => {
   const { theme } = ThemeState();
 
-  // console.log("render", classCards, cover);
-
   return (
     <>
       <p className={`text ${classCards}Text`}>{classCards}</p>

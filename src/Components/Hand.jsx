@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import Stack from "@mui/material/Stack";
 import ImageListItem from "@mui/material/ImageListItem";
 import useTurn from "../hooks/useTurn";
@@ -6,34 +6,16 @@ import { GameState } from "../context/game";
 
 import "./component.css";
 import playersArr from "../utils/playersArr";
-import useBot from "../hooks/useBot";
 
 export default function Hand({ player }) {
-  const { initialPlayer, table, players, gameCards, currentPlayer } =
-    GameState();
-  const timer = useRef();
+  const { initialPlayer, table, players, gameCards } = GameState();
   const turn = useTurn();
   const [error, setError] = useState(false);
-  const bot = useBot();
-  // useEffect(() => {
-  //   console.log("inside bot useffect", currentPlayer, initialPlayer, table);
-  //   if (
-  //     currentPlayer !== 0 &&
-  //     table !== undefined &&
-  //     players[playersArr[currentPlayer]].length !== 0 &&
-  //     !table[currentPlayer]
-  //   ) {
-  //     console.log(currentPlayer);
-  //     timer.current = setTimeout(() => {
-  //       bot(currentPlayer);
-  //     }, 1500);
-  //   }
-  //   return () => clearTimeout(timer.current);
-  //   //what if current player is same as initial player
-  // }, [currentPlayer]);
 
   const handleClick = (player, item) => {
     setError(false);
+    //ErrorDuring Development
+    //Hand.jsx:37  Uncaught TypeError: Cannot read properties of null (reading '1')
     if (table[initialPlayer]) {
       if (
         players[playersArr[player]].some(
@@ -67,7 +49,9 @@ export default function Hand({ player }) {
     >
       {(players[playersArr[player]].length
         ? players[playersArr[player]]
-        : gameCards.slice(player * 8, player * 8 + 8)
+        : gameCards.length === 32
+        ? gameCards.slice(player * 8, player * 8 + 8)
+        : []
       ).map((item) => (
         <ImageListItem
           key={item}

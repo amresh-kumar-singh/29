@@ -25,13 +25,13 @@ const Auction = ({ setDisplayAuction }) => {
   const handlePass = () => {
     //bidder[0] is one who called pass
     setVisited((prev) => [...prev, bidder[0]]);
-    console.log(bidder);
+    // console.log(bidder);
     if (bidder[0] === dealer || bidder[1] === dealer) {
       if (call.call < 16) {
         setCall({ call: 17, caller: dealer });
       }
       // Unmoundt Auction component
-      console.log("Bidding Done");
+      // console.log("Bidding Done");
       setDisplayAuction(2);
       return;
     }

@@ -7,19 +7,14 @@ import "./component.css";
 
 const PlayerAvatar = ({ imgSrc, orientation }) => {
   const { theme } = ThemeState();
-  const { initialPlayer, currentPlayer, players } = GameState();
+  const { initialPlayer, currentPlayer, players, table } = GameState();
   const bot = useBot();
   useEffect(() => {
-    console.log("this is from use Effetct", currentPlayer[0]);
+    // console.log("this is from use Effetct", currentPlayer[0]);
     if (
       playersArr[currentPlayer[0]] === orientation &&
       players[playersArr[currentPlayer[0]]].length !== 0
     ) {
-      console.log(
-        currentPlayer[0],
-        "< currentPlayer[0] InitailPlayer >",
-        initialPlayer
-      );
       setTimeout(() => {
         bot(currentPlayer[0]);
       }, 2000);
@@ -32,7 +27,9 @@ const PlayerAvatar = ({ imgSrc, orientation }) => {
       style={{
         backgroundSize: "cover",
         backgroundImage: `url(avatar/${imgSrc}.svg)`,
-        borderColor: playersArr[currentPlayer] === orientation && "#7CFC00",
+        borderColor:
+          playersArr[table === null ? initialPlayer : currentPlayer] ===
+            orientation && "#7CFC00",
       }}
     >
       <p

@@ -4,29 +4,26 @@ import CardsPattern from "./CardsPattern";
 
 const OpponentScore = () => {
   const {
-    opponentTeam: { score },
+    opponentTeam: { score, colorScore },
   } = GameState();
-  const [type, setType] = useState();
 
-  //number[0]--multiple, number[1]--remainder
-  const [[multiple, remainder], setNumber] = useState([0, 0]);
+  const [type, setType] = useState();
   const [cover, setCover] = useState(null);
 
   useEffect(() => {
-    setNumber((prev) => [(score / 6) | 0, score % 6]);
     score >= 0 ? setType((prev) => "D") : setType((prev) => "C");
   }, [score]);
 
   useEffect(() => {
-    setCover(6 - Math.abs(multiple) + type);
-  }, [multiple, type]);
+    setCover(`${6 - Math.abs(colorScore)}${colorScore > 0 ? "D" : "C"}`);
+  }, [colorScore]);
 
   return (
     <CardsPattern
       cover={cover}
       classCards="opponent"
       src={`6${type}`}
-      number={remainder}
+      number={Math.abs(score)}
     />
   );
 };
