@@ -15,9 +15,9 @@ export default function GameProvider({ children }) {
       call: { call: -1, caller: -1 },
     },
     tableStatus: {
-      dealer: 0,
-      initialPlayer: 1,
-      currentPlayer: [1],
+      dealer: 1,
+      initialPlayer: 2,
+      currentPlayer: [2],
       color: [false, ""],
     },
   });

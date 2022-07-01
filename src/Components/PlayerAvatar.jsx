@@ -5,7 +5,7 @@ import useBot from "../hooks/useBot";
 import playersArr from "../utils/playersArr";
 import "./component.css";
 
-const PlayerAvatar = ({ imgSrc, orientation }) => {
+const PlayerAvatar = ({ imgSrc, orientation, currentBidder }) => {
   const { theme } = ThemeState();
   const { initialPlayer, currentPlayer, players, table } = GameState();
   const bot = useBot();
@@ -25,22 +25,40 @@ const PlayerAvatar = ({ imgSrc, orientation }) => {
     <div
       className={`avatar-${orientation} avatar`}
       style={{
-        backgroundSize: "cover",
-        backgroundImage: `url(avatar/${imgSrc}.svg)`,
-        borderColor:
-          playersArr[table === null ? initialPlayer : currentPlayer] ===
-            orientation && "#7CFC00",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
-      <p
-        className="avatar-text"
+      <div
+        className={`rotate-circle ${
+          (currentBidder &&
+            playersArr[currentBidder] === orientation &&
+            "active-bidder") ||
+          (playersArr[table === null ? initialPlayer : currentPlayer] ===
+            orientation &&
+            !currentBidder &&
+            "active")
+        }`}
+      ></div>
+      <div
+        className={`avatar`}
         style={{
-          background: "#" + theme.scoreboard.background,
-          color: "#" + theme.scoreboard.color,
+          backgroundSize: "cover",
+          backgroundImage: `url(avatar/${imgSrc}.svg)`,
+          width: "94%",
         }}
       >
-        {orientation}
-      </p>
+        <p
+          className="avatar-text"
+          style={{
+            background: "#" + theme.scoreboard.background,
+            color: "#" + theme.scoreboard.color,
+          }}
+        >
+          {orientation}
+        </p>
+      </div>
     </div>
   );
 };

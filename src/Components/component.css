@@ -76,7 +76,7 @@
   position: absolute;
   z-index: 1;
   background: black;
-  border: 5px solid darkgrey;
+  /* border: 5px solid darkgrey; */
   border-radius: 50%;
   overflow: hidden;
 }
@@ -136,6 +136,26 @@
 /* .MuiSnackbar-root {
   opacity: 0.8;
 } */
+.rotate-circle {
+  display: block;
+  width: 92%;
+  height: 92%;
+  border-radius: 50%;
+  padding: 2.5px;
+  background-clip: content-box;
+  border: 5px solid grey;
+}
+.active {
+  animation: spin 10s linear infinite;
+  background-color: #4bb543;
+  border: 5px dashed #7cfc00;
+}
+.active-bidder {
+  animation: spin 10s linear infinite;
+  background-color: #4bb543;
+  border: 5px dashed #f0d500;
+}
+
 @keyframes spin {
   100% {
     transform: rotateZ(360deg);

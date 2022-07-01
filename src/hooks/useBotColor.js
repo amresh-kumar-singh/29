@@ -43,6 +43,8 @@ const useBotColor = () => {
 
   const colorType = (player) => {
     console.log("Max Cache", maxCache);
+    if (maxCache[player] === undefined) return "7th";
+    if (maxCache[player][0] === 0) return "7th";
     console.log("returnType: ", 2 + maxCache[player][0]);
     return 2 + maxCache[player][0];
   };

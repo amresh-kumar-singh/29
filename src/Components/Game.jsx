@@ -20,19 +20,25 @@ import Color from "./Color";
 import useSave from "../hooks/useSave";
 import usePair from "../hooks/usePair";
 import useBotColor from "../hooks/useBotColor";
+import playersArr from "../utils/playersArr";
 
 const Game = () => {
   const {
     gameCards,
     players,
+    call,
     color: [colorStatus, colorCard],
+    setColor,
+    setPlayers,
   } = GameState();
   const deal = useDeal();
   const shuffle = useShuffle();
   const [displayAuction, setDisplayAuction] = useState(0);
   const deviceType = useDevice();
   const { colorType, colorPicker, clearBotColor } = useBotColor();
+  const [currentBidder, setCurrentBidder] = useState(null);
   usePair();
+
   // useSave(); //for development disabled it
 
   const handleShuffle = () => {
@@ -46,7 +52,22 @@ const Game = () => {
   useEffect(() => {
     colorCard && deal();
     colorCard && clearBotColor();
+    colorCard && setCurrentBidder(null);
   }, [colorCard]);
+
+  useEffect(() => {
+    if (displayAuction === 0 && call.call > 16 && colorCard === "7th") {
+      let colorPlayerCards = players[playersArr[call.caller]];
+      let filteredCard = colorPlayerCards.filter((item, i) => i !== 6);
+      let color = colorPlayerCards[6];
+      console.log(colorPlayerCards, filteredCard, color);
+      setColor((prev) => [prev[0], color]);
+      setPlayers((prev) => ({
+        ...prev,
+        [playersArr[call.caller]]: filteredCard,
+      }));
+    }
+  }, [displayAuction]);
   return (
     <GameThemeProvider>
       <Box sx={{ position: "relative", height: "100vh", width: "100vw" }}>
@@ -79,14 +100,27 @@ const Game = () => {
         {deviceType === "Mobile" && <Fullscreen />}
         <PWA />
         <Scoreboard />
-        <PlayerAvatar imgSrc="g2" orientation="north" />
-        <PlayerAvatar imgSrc="g3" orientation="east" />
-        <PlayerAvatar imgSrc="g4" orientation="west" />
+        <PlayerAvatar
+          imgSrc="g2"
+          orientation="north"
+          currentBidder={currentBidder}
+        />
+        <PlayerAvatar
+          imgSrc="g3"
+          orientation="east"
+          currentBidder={currentBidder}
+        />
+        <PlayerAvatar
+          imgSrc="g4"
+          orientation="west"
+          currentBidder={currentBidder}
+        />
 
         {displayAuction === 1 && (
           <Auction
             setDisplayAuction={setDisplayAuction}
             colorPicker={colorPicker}
+            setCurrentBidder={setCurrentBidder}
           />
         )}
 
