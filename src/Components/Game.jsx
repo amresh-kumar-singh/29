@@ -19,6 +19,7 @@ import PWA from "./Controls/PWA";
 import Color from "./Color";
 import useSave from "../hooks/useSave";
 import usePair from "../hooks/usePair";
+import useBotColor from "../hooks/useBotColor";
 
 const Game = () => {
   const {
@@ -30,8 +31,9 @@ const Game = () => {
   const shuffle = useShuffle();
   const [displayAuction, setDisplayAuction] = useState(0);
   const deviceType = useDevice();
+  const { colorType, colorPicker, clearBotColor } = useBotColor();
   usePair();
-  useSave();
+  // useSave(); //for development disabled it
 
   const handleShuffle = () => {
     shuffle();
@@ -43,6 +45,7 @@ const Game = () => {
   // Automatically deal when color card is set
   useEffect(() => {
     colorCard && deal();
+    colorCard && clearBotColor();
   }, [colorCard]);
   return (
     <GameThemeProvider>
@@ -81,11 +84,14 @@ const Game = () => {
         <PlayerAvatar imgSrc="g4" orientation="west" />
 
         {displayAuction === 1 && (
-          <Auction setDisplayAuction={setDisplayAuction} />
+          <Auction
+            setDisplayAuction={setDisplayAuction}
+            colorPicker={colorPicker}
+          />
         )}
 
         {displayAuction === 2 && (
-          <Color setDisplayAuction={setDisplayAuction} />
+          <Color setDisplayAuction={setDisplayAuction} colorType={colorType} />
         )}
       </Box>
     </GameThemeProvider>

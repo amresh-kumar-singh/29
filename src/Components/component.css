@@ -136,7 +136,11 @@
 /* .MuiSnackbar-root {
   opacity: 0.8;
 } */
-
+@keyframes spin {
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
 @media only screen and (max-width: 720px) {
   .scoreboard {
     padding: 5px 10px;

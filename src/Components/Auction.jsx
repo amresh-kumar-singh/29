@@ -1,16 +1,28 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
+import { useEffect } from "react";
 import { useState } from "react";
 import { GameState } from "../context/game";
+import useBotColor from "../hooks/useBotColor";
 import playersArr from "../utils/playersArr";
 import "./component.css";
 
 let arr = [17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29];
 
-const Auction = ({ setDisplayAuction }) => {
+const Auction = ({ setDisplayAuction, colorPicker }) => {
   const { call, setCall, dealer } = GameState();
   const [bidder, setBidder] = useState([(dealer + 1) % 4, (dealer + 2) % 4]);
   const [visited, setVisited] = useState([]);
+  // const { colorPicker } = useBotColor();
 
+  useEffect(() => {
+    if (bidder[0] !== 0) {
+      const choice = colorPicker(bidder[0]);
+      console.log("inside Bot effetc", choice);
+      call.call < choice[1] && choice[1] !== 0
+        ? handleCall(call.call + 1)
+        : handlePass();
+    }
+  }, [bidder[0]]);
   const handleCall = (item) => {
     setCall((prev) => {
       return {
