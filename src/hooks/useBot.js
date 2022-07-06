@@ -1,22 +1,9 @@
 import { GameState } from "../context/game";
 import playersArr from "../utils/playersArr";
 import useTurn from "./useTurn";
+import { minMaxCards, maxNoCards, JackCount } from "../utils/botHelper";
+
 let arr = ["7", "8", "Q", "K", "1", "A", "9", "J"];
-
-//Function to get max card and min card of same color
-function minMaxCards(array) {
-  const valueArr = array.map((item) => arr.indexOf(item[0]));
-
-  return [
-    arr[Math.min(...valueArr)] + array[0][1],
-    arr[Math.max(...valueArr)] + array[0][1],
-  ];
-}
-
-function JackCount(cards) {
-  // cards can be all cards
-  return cards.filter((item) => item[0] === "J");
-}
 
 const useBot = () => {
   const {
@@ -25,88 +12,116 @@ const useBot = () => {
     players,
     setColor,
     initialPlayer,
+    call,
   } = GameState();
   const turn = useTurn();
 
-  // Make a function for possible cards to play
+  //-----------------------------------------------------------------------------------
   const bot = (player) => {
-    if (table.filter((item) => item).length === 4) {
-      console.log("Table is Full");
-      return player;
-    }
-
-    const handCards = players[playersArr[player]];
-    console.log(table, "Table :: for Player:", player, "has: ", handCards);
-    if (table.length === 0) {
-      //Check if Player has JACK
-      const JackCards = JackCount(handCards);
-      // console.log("looking of J", JackCards);
-      if (JackCards.length > 0) {
-        turn(player, JackCards[0]);
-      } else {
-        //Just for testing
-        turn(player, handCards[0]);
-      }
-      return player;
-    }
-    //Our table has some defect logic table .initial player location can be empty
-    // lets make table object
-    const gameCard = table[initialPlayer];
-    // console.log(
-    //   "Initial Player:",
-    //   initialPlayer,
-    //   "gamecard: ",
-    //   gameCard,
-    //   "player: ",
-    //   player
-    // );
-    const playerGameCards = handCards.filter((item) => gameCard[1] === item[1]);
-    // const priority = (player + initialPlayer)/2===0
-
-    // In case bot is first one to play
     let _playCard;
-    //if player has same card[1] as game card[1]
-    if (playerGameCards.length > 0) {
-      // Check value of game card and decide what to play
-      //Get max on table
-      const [tableMin, tableMax] = minMaxCards(table.filter((item) => item));
-      const [playerMin, playerMax] = minMaxCards(playerGameCards);
-      // console.log("table", tableMax, tableMin);
-      // console.log("player", playerMax, playerMin);
-      _playCard =
-        arr.indexOf(tableMax[0]) > arr.indexOf(playerMax[0])
-          ? playerMin
-          : playerMax;
-    } else {
-      // check color status if false true !statusColor && setStausColor(true)
-      //color card on table
-      const _tableColorCards = table.filter(
-        (item) => item && item[1] === colorCard[1]
-      );
-      //Color
-      const _playerColorCards = handCards.filter(
-        (item) => item[1] === colorCard[1]
-      );
-      !colorStatus && setColor((prev) => [true, prev[1]]);
-      //Player Doesn't have color or color is not shown
-      if (_playerColorCards.length === 0) {
-        //Testing purpose
-        // console.log("colorPlay:", handCards[0]);
-        turn(player, handCards[0]);
-        return;
+    const inHandCards = players[playersArr[player]];
+
+    if (table.length === 0) {
+      const JackCards = JackCount(inHandCards);
+      if (JackCards.length > 0) {
+        _playCard =
+          colorStatus &&
+          JackCards.length > 1 &&
+          JackCards[0][1] === colorCard[1]
+            ? JackCards[1]
+            : JackCards[0];
+      } else {
+        const _maxNoCards = maxNoCards(inHandCards);
+        const [playerMin] = minMaxCards(
+          inHandCards.filter((item) => item[1] === _maxNoCards)
+        );
+        _playCard = playerMin;
       }
-      const [tableMin, tableMax] =
-        _tableColorCards.length > 0 ? minMaxCards(_tableColorCards) : [0, 0]; //Since table length can be 0
-      const [playerMin, playerMax] = minMaxCards(_playerColorCards);
-      // console.log("tableCOLOR", tableMax, tableMin);
-      // console.log("playerCOLOR", playerMax, playerMin);
-      _playCard =
-        tableMin[0] !== 0 &&
-        arr.indexOf(tableMax[0]) < arr.indexOf(playerMax[0])
-          ? playerMax
-          : playerMin;
+    } else {
+      const gameCard = table[initialPlayer];
+      const playerGameCards = inHandCards.filter(
+        (item) => gameCard[1] === item[1]
+      );
+      const [, tableGameMax] = minMaxCards(
+        table.filter((item) => item && item[1] === gameCard[1])
+      );
+      // console.log(tableGameMin, "min max", tableGameMax);
+      if (playerGameCards.length > 0) {
+        let colorOnTable;
+        // if ColorStatus is true and not game of color
+        if (colorStatus && gameCard[1] !== colorCard[1]) {
+          let colorArr = table.filter(
+            (item) => item && item[1] === colorCard[1]
+          );
+          colorOnTable = colorArr.length;
+        }
+
+        const [playerMin, playerMax] = minMaxCards(playerGameCards);
+        _playCard =
+          colorOnTable ||
+          arr.indexOf(tableGameMax[0]) > arr.indexOf(playerMax[0]) //player has bigger card then playMax
+            ? table.indexOf(tableGameMax) === (player + 2) % 4 && //player doesn't have higher card check higher card is of teammate and
+              tableGameMax[0] === "J" && // if yes and it is Jack and
+              ((!colorStatus && call.caller !== player) ||
+                (colorStatus && colorCard[1] !== playerMin[1])) // if color is not shown then give higher cards for points and if color is shown the check for colorcard
+              ? playerMax
+              : playerMin
+            : playerMax;
+      } else {
+        // check color status if false true !statusColor && setStausColor(true)
+        let asker;
+        const _tableColorCards = table.filter(
+          (item) => item && item[1] === colorCard[1]
+        );
+        const _playerColorCards = inHandCards.filter(
+          (item) => item[1] === colorCard[1]
+        );
+
+        if (!colorStatus) {
+          asker = true;
+          console.log("asker is: ", player);
+          setColor((prev) => [true, prev[1]]);
+        }
+
+        const [tableColorMin, tableColorMax] =
+          _tableColorCards.length > 0 ? minMaxCards(_tableColorCards) : [0, 0]; //Since table length can be 0
+        const _maxOtherNoCards = maxNoCards(
+          inHandCards.filter((item) => item[1] !== colorCard[1])
+        ); //playercard without color
+        const [otherMin, otherMax] = minMaxCards(
+          _maxOtherNoCards === 0
+            ? inHandCards
+            : inHandCards.filter((item) => item[1] === _maxOtherNoCards)
+        );
+        //Player Doesn't have color or color is not shown or joker is color
+        if (_playerColorCards.length === 0) {
+          _playCard =
+            tableColorMax !== 0 // Table has color
+              ? table.indexOf(tableColorMax) === (player + 2) % 4 //TeamMate has highest color card
+                ? otherMax
+                : otherMin //color on table and teammate has max
+              : table.indexOf(tableGameMax) === (player + 2) % 4
+              ? otherMax
+              : otherMin;
+
+          turn(player, _playCard);
+          return;
+        }
+        const [playerColorMin, playerColorMax] = minMaxCards(_playerColorCards);
+
+        _playCard =
+          tableColorMin !== 0 //color on table
+            ? table.indexOf(tableColorMax) === (player + 2) % 4
+              ? otherMax //table max teamMate or player max small than table
+              : arr.indexOf(tableColorMax[0]) > arr.indexOf(playerColorMax[0])
+              ? otherMin
+              : playerColorMax
+            : table.indexOf(tableGameMax) === (player + 2) % 4 && !asker
+            ? otherMax
+            : playerColorMin;
+      }
     }
-    // console.log("Player: ", player, "going to paly: ", _playCard);
+
     turn(player, _playCard);
     return player;
   };

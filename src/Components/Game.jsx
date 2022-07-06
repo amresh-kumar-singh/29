@@ -10,7 +10,7 @@ import useShuffle from "../hooks/useShuffle";
 import useDeal from "../hooks/useDeal";
 import Scoreboard from "./Scoreboard";
 import Auction from "./Auction";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PlayerAvatar from "./PlayerAvatar";
 import useDevice from "../hooks/useDevice";
 
@@ -38,7 +38,8 @@ const Game = () => {
   const { colorType, colorPicker, clearBotColor } = useBotColor();
   const [currentBidder, setCurrentBidder] = useState(null);
   usePair();
-
+  const [seventh, setSeventh] = useState(null);
+  const timerRef = useRef();
   // useSave(); //for development disabled it
 
   const handleShuffle = () => {
@@ -50,31 +51,43 @@ const Game = () => {
   };
   // Automatically deal when color card is set
   useEffect(() => {
-    colorCard && deal();
-    colorCard && clearBotColor();
-    colorCard && setCurrentBidder(null);
+    if (colorCard) {
+      gameCards.length === 16 && deal();
+      clearBotColor();
+      setCurrentBidder(null);
+    }
   }, [colorCard]);
 
   useEffect(() => {
-    if (displayAuction === 0 && call.call > 16 && colorCard === "7th") {
+    if (
+      displayAuction === 0 &&
+      call.call > 16 &&
+      colorCard === "7th" &&
+      players[playersArr[call.caller]].length === 8
+    ) {
       let colorPlayerCards = players[playersArr[call.caller]];
-      let filteredCard = colorPlayerCards.filter((item, i) => i !== 6);
+      // let filteredCard = colorPlayerCards.filter((item, i) => i !== 6);
       let color = colorPlayerCards[6];
-      console.log(colorPlayerCards, filteredCard, color);
-      setColor((prev) => [prev[0], color]);
-      setPlayers((prev) => ({
-        ...prev,
-        [playersArr[call.caller]]: filteredCard,
-      }));
+      setSeventh(color);
+      setColor((prev) => [prev[0], `2${color[1]}`]);
+      timerRef.current = setTimeout(() => {
+        setSeventh(null);
+      }, 1500);
+      // setPlayers((prev) => ({
+      //   ...prev,
+      //   [playersArr[call.caller]]: filteredCard,
+      // }));
     }
-  }, [displayAuction]);
+  }, [players[playersArr[call.caller]]]);
   return (
     <GameThemeProvider>
       <Box sx={{ position: "relative", height: "100vh", width: "100vw" }}>
-        {[0, 1, 2, 3].map((item) => {
-          return <Hand player={item} key={item} />;
+        {/* Development */}
+        {[1, 2, 3].map((item) => {
+          return <Hand player={item} key={item} seventh={seventh} />;
         })}
-
+        {/* Production */}
+        <Hand player={0} seventh={seventh} />;
         <GameTable />
         <Theme />
         {/* Suffle */}
@@ -96,7 +109,6 @@ const Game = () => {
         >
           Deal
         </Button>
-
         {deviceType === "Mobile" && <Fullscreen />}
         <PWA />
         <Scoreboard />
@@ -115,7 +127,6 @@ const Game = () => {
           orientation="west"
           currentBidder={currentBidder}
         />
-
         {displayAuction === 1 && (
           <Auction
             setDisplayAuction={setDisplayAuction}
@@ -123,7 +134,6 @@ const Game = () => {
             setCurrentBidder={setCurrentBidder}
           />
         )}
-
         {displayAuction === 2 && (
           <Color setDisplayAuction={setDisplayAuction} colorType={colorType} />
         )}

@@ -15,6 +15,7 @@ const Trump = () => {
   const [cover, setCover] = useState(null);
 
   useEffect(() => {
+    console.log(colorCard, colorStatus);
     !colorStatus ? setCover(null) : setCover(colorCard);
   }, [colorStatus]);
   // console.log("colorStatus:", colorStatus, colorCard);

@@ -7,7 +7,7 @@ import { GameState } from "../context/game";
 import "./component.css";
 import playersArr from "../utils/playersArr";
 
-export default function Hand({ player, seventh }) {
+export default function PlayerHand({ player, seventh }) {
   const { initialPlayer, table, players, gameCards, currentPlayer } =
     GameState();
   const turn = useTurn();
