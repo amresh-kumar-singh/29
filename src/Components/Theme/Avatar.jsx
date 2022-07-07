@@ -5,6 +5,7 @@ import { avatars } from "../../utils/theme";
 import { ThemeState } from "../../context/theme";
 import playersArr from "../../utils/playersArr";
 import { Typography } from "@mui/material";
+import "./theme.css";
 
 export default function Avatar({ value }) {
   const { theme, setTheme } = ThemeState();
@@ -20,7 +21,8 @@ export default function Avatar({ value }) {
 
   return (
     <ImageList
-      sx={{ width: "20vw", height: "auto", paddingLeft: "5px" }}
+      className="theme-avatar"
+      sx={{ width: "20vw", height: "auto", paddingLeft: "40px" }}
       cols={3}
     >
       {avatars.map((item) => (

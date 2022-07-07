@@ -10,7 +10,7 @@ export default function RadioControl({ setValue, value }) {
   };
 
   return (
-    <FormControl>
+    <FormControl sx={{ paddingLeft: "25px" }}>
       <RadioGroup
         row
         aria-labelledby="avatar-controlled-radio-buttons-group"

@@ -6,6 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { ThemeState } from "../context/theme";
 import { lazy } from "react";
+import "./component.css";
 const Accord = lazy(() => import("./Theme/Accord"));
 
 export default function TableStyle() {

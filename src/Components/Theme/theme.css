@@ -1,0 +1,20 @@
+.card-theme-item {
+  height: 12vw;
+}
+@media only screen and (max-width: 720px) {
+  .theme-avatar,
+  .card-theme {
+    width: 40vw;
+    margin: 0;
+  }
+}
+
+@media screen and (orientation: portrait) {
+  .theme-avatar,
+  .card-theme {
+    width: 40vh;
+  }
+  .card-theme-item {
+    height: 12vh;
+  }
+}

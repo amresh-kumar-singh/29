@@ -201,4 +201,7 @@
   .MuiBackdrop-root {
     width: 100vh;
   }
+  .MuiDrawer-paperAnchorRight {
+    right: auto !important;
+  }
 }

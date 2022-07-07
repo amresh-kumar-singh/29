@@ -6,7 +6,7 @@ const ScoreboardTheme = () => {
   const { theme, setTheme } = ThemeState();
 
   return (
-    <List>
+    <List sx={{ margin: "0 15px" }}>
       {Object.entries(scoreboard).map(([name, style], i) => {
         return (
           <ListItem

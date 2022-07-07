@@ -3,6 +3,7 @@ import List from "@mui/material/List";
 import { cardsPattern } from "../../utils/theme";
 
 import "../Cards/cardStyle.css";
+import "./theme.css";
 import { ThemeState } from "../../context/theme";
 
 const CardTheme = () => {
@@ -13,15 +14,15 @@ const CardTheme = () => {
         height: "55vh",
         width: "20vw",
         display: "grid",
+        padding: "revert",
         gridTemplateColumns: "repeat(3, 1fr)",
       }}
-      className="wrapper"
+      className="wrapper card-theme"
     >
       {Object.entries(cardsPattern).map(([key, name], index) => (
         <ListItem sx={{ padding: "3px" }} key={key}>
           <div
-            className={`pattern close ${key}`}
-            style={{ height: "12vh" }}
+            className={`pattern close ${key} card-theme-item`}
             onClick={() =>
               setTheme((prev) => {
                 return { ...prev, card: key };
