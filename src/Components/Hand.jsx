@@ -10,18 +10,12 @@ import playersArr from "../utils/playersArr";
 export default function Hand({ player, seventh }) {
   const { initialPlayer, table, players, gameCards, currentPlayer } =
     GameState();
-  const turn = useTurn();
   const [error, setError] = useState(false);
+  const turn = useTurn();
 
   const handleClick = (player, item) => {
+    // eslint-disable-next-line
     if (player != currentPlayer) {
-      console.log(
-        player,
-        currentPlayer,
-        "not you turn",
-        playersArr[player],
-        playersArr[currentPlayer]
-      );
       return;
     }
     setError(false);
@@ -45,7 +39,6 @@ export default function Hand({ player, seventh }) {
       if (player === initialPlayer) {
         turn(player, item);
       }
-      // console.log("not Your turn: ", playersArr[player]);
     }
   };
 

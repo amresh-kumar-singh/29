@@ -1,6 +1,6 @@
 import { List, ListItem, Typography } from "@mui/material";
 import { ThemeState } from "../../context/theme";
-import scoreboard from "../../utils/scoreboard";
+import { scoreboard } from "../../utils/theme";
 
 const ScoreboardTheme = () => {
   const { theme, setTheme } = ThemeState();

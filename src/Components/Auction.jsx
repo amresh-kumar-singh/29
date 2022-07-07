@@ -1,9 +1,8 @@
-import { Box, Grid, Stack, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid";
 import { useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { GameState } from "../context/game";
-import useBotColor from "../hooks/useBotColor";
 import playersArr from "../utils/playersArr";
 import "./component.css";
 
@@ -13,8 +12,8 @@ const Auction = ({ setDisplayAuction, colorPicker, setCurrentBidder }) => {
   const { call, setCall, dealer } = GameState();
   const [bidder, setBidder] = useState([(dealer + 1) % 4, (dealer + 2) % 4]);
   const [visited, setVisited] = useState([]);
-  // const { colorPicker } = useBotColor();
   const timerRef = useRef();
+
   useEffect(() => {
     setCurrentBidder(bidder[0]);
   }, [bidder[0]]);
@@ -22,7 +21,6 @@ const Auction = ({ setDisplayAuction, colorPicker, setCurrentBidder }) => {
   useEffect(() => {
     if (bidder[0] !== 0) {
       const choice = colorPicker(bidder[0]);
-      console.log("inside Bot effetc", choice);
       timerRef.current = setTimeout(() => {
         call.call < choice[1] && choice[1] !== 0
           ? handleCall(call.call < 17 ? 17 : call.call + 1)
@@ -46,13 +44,11 @@ const Auction = ({ setDisplayAuction, colorPicker, setCurrentBidder }) => {
   const handlePass = () => {
     //bidder[0] is one who called pass
     setVisited((prev) => [...prev, bidder[0]]);
-    // console.log(bidder);
     if (bidder[0] === dealer || bidder[1] === dealer) {
       if (call.call < 16) {
         setCall({ call: 17, caller: dealer });
       }
       // Unmoundt Auction component
-      // console.log("Bidding Done");
       setDisplayAuction(2);
       return;
     }
@@ -87,6 +83,10 @@ const Auction = ({ setDisplayAuction, colorPicker, setCurrentBidder }) => {
             xs={2}
             component="span"
             key={element}
+            sx={{
+              cursor:
+                bidder[0] === 0 ? "pointer !important" : "none !important",
+            }}
             className={element <= call.call ? "visited" : ""}
             onClick={() => element > call.call && handleCall(element)}
           >

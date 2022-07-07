@@ -1,16 +1,16 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { GameState } from "../context/game";
 import { ThemeState } from "../context/theme";
 import useBot from "../hooks/useBot";
 import playersArr from "../utils/playersArr";
 import "./component.css";
 
-const PlayerAvatar = ({ imgSrc, orientation, currentBidder }) => {
+const PlayerAvatar = ({ orientation, currentBidder }) => {
   const { theme } = ThemeState();
   const { initialPlayer, currentPlayer, players, table } = GameState();
   const bot = useBot();
+
   useEffect(() => {
-    // console.log("this is from use Effetct", currentPlayer[0]);
     if (
       playersArr[currentPlayer[0]] === orientation &&
       players[playersArr[currentPlayer[0]]].length !== 0
@@ -45,7 +45,9 @@ const PlayerAvatar = ({ imgSrc, orientation, currentBidder }) => {
         className={`avatar`}
         style={{
           backgroundSize: "cover",
-          backgroundImage: `url(avatar/${imgSrc}.svg)`,
+          backgroundImage: `url(avatar/${
+            theme.avatar[playersArr.indexOf(orientation)]
+          }.svg)`,
           width: "94%",
         }}
       >

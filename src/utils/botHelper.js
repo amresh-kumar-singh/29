@@ -13,12 +13,12 @@ function minMaxCards(array) {
 function JackCount(cards) {
   return cards.filter((item) => item[0] === "J");
 }
+
 //this will return card which has maximum length
 const maxNoCards = (cards) => {
   let obj = {};
   for (let i in cards) {
     //{C:[number, point]}
-    // console.log("from useBot: ", obj[cards[i][1]], cards[i], cards);
     obj[cards[i][1]] = obj[cards[i][1]]
       ? [obj[cards[i][1]][0] + 1, obj[cards[i][1]][1] + points[cards[i][0]]] //no of cards[i]s of same color,point total
       : [1, points[cards[i][0]]];
@@ -28,7 +28,6 @@ const maxNoCards = (cards) => {
   let max = 0;
   for (let i in obj) {
     if (obj[i][0] >= minLength) {
-      // console.log(minPoints);
       if (obj[i][0] === minLength && minPoints > obj[i][1]) {
         minLength = obj[i][0];
         minPoints = obj[i][1];

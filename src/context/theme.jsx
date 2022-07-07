@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
 import useStorage from "../hooks/useStorage";
-import gradient from "../utils/gradient";
+// import gradient from "../utils/gradient";
+import { gradient } from "../utils/theme";
 
 const Context = createContext();
 
@@ -12,6 +13,7 @@ export default function GameThemeProvider({ children }) {
       background: "292826",
       color: "F9D342",
     },
+    avatar: ["m1", "g2", "m3", "g4"],
   });
 
   return (

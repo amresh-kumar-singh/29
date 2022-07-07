@@ -6,11 +6,12 @@ import useScore from "../../hooks/useScore";
 
 const TableCards = () => {
   const { table } = GameState();
+
   const score = useScore();
   useEffect(() => {
     score();
   }, [table]);
-  // if (table === null) return;
+
   return (
     <div className="table-cards">
       {table.map((item, index) => {

@@ -1,11 +1,10 @@
 import { useState } from "react";
-import useDevice from "../../hooks/useDevice";
-import Prompt from "./Prompt";
+import Button from "@mui/material/Button";
 import InstallDesktopTwoToneIcon from "@mui/icons-material/InstallDesktopTwoTone";
 import InstallMobileTwoToneIcon from "@mui/icons-material/InstallMobileTwoTone";
+import Prompt from "./Prompt";
+import useDevice from "../../hooks/useDevice";
 import useInstall from "../../hooks/useInstall";
-
-import Button from "@mui/material/Button";
 
 const PWA = () => {
   const [open, setOpen] = useState(true);
@@ -22,7 +21,12 @@ const PWA = () => {
     (!open ? (
       <Button
         variant="contained"
-        sx={{ position: "absolute", zIndex: 5, top: "20%", right: "3%" }}
+        sx={{
+          position: "absolute",
+          zIndex: 5,
+          top: "12%",
+          right: "1%",
+        }}
         onClick={handleInstall}
         endIcon={
           device === "Mobile" ? (

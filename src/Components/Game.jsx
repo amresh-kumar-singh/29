@@ -27,20 +27,20 @@ const Game = () => {
     gameCards,
     players,
     call,
-    color: [colorStatus, colorCard],
+    color: [, colorCard],
     setColor,
-    setPlayers,
   } = GameState();
+  const [displayAuction, setDisplayAuction] = useState(0);
+  const [seventh, setSeventh] = useState(null);
+  const [currentBidder, setCurrentBidder] = useState(null);
+  const timerRef = useRef();
+
   const deal = useDeal();
   const shuffle = useShuffle();
-  const [displayAuction, setDisplayAuction] = useState(0);
   const deviceType = useDevice();
   const { colorType, colorPicker, clearBotColor } = useBotColor();
-  const [currentBidder, setCurrentBidder] = useState(null);
   usePair();
-  const [seventh, setSeventh] = useState(null);
-  const timerRef = useRef();
-  // useSave(); //for development disabled it
+  useSave(); //for development disabled it
 
   const handleShuffle = () => {
     shuffle();
@@ -112,21 +112,9 @@ const Game = () => {
         {deviceType === "Mobile" && <Fullscreen />}
         <PWA />
         <Scoreboard />
-        <PlayerAvatar
-          imgSrc="g2"
-          orientation="north"
-          currentBidder={currentBidder}
-        />
-        <PlayerAvatar
-          imgSrc="g3"
-          orientation="east"
-          currentBidder={currentBidder}
-        />
-        <PlayerAvatar
-          imgSrc="g4"
-          orientation="west"
-          currentBidder={currentBidder}
-        />
+        <PlayerAvatar orientation="north" currentBidder={currentBidder} />
+        <PlayerAvatar orientation="east" currentBidder={currentBidder} />
+        <PlayerAvatar orientation="west" currentBidder={currentBidder} />
         {displayAuction === 1 && (
           <Auction
             setDisplayAuction={setDisplayAuction}

@@ -14,14 +14,8 @@ export default function PlayerHand({ player, seventh }) {
   const [error, setError] = useState(false);
 
   const handleClick = (player, item) => {
+    // eslint-disable-next-line
     if (player != currentPlayer) {
-      console.log(
-        player,
-        currentPlayer,
-        "not you turn",
-        playersArr[player],
-        playersArr[currentPlayer]
-      );
       return;
     }
     setError(false);
@@ -45,7 +39,6 @@ export default function PlayerHand({ player, seventh }) {
       if (player === initialPlayer) {
         turn(player, item);
       }
-      // console.log("not Your turn: ", playersArr[player]);
     }
   };
 

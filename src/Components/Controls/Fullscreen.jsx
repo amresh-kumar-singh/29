@@ -18,7 +18,6 @@ const Fullscreen = () => {
     }
   };
   useEffect(() => {
-    console.log("use Effect");
     window.addEventListener("resize", mode);
     function mode() {
       if (
@@ -41,7 +40,7 @@ const Fullscreen = () => {
       onClick={handleScreenStatus}
       color="secondary"
       size="large"
-      sx={{ position: "absolute", top: "12%", right: "1%" }}
+      sx={{ position: "absolute", bottom: "1%", right: "1%" }}
     >
       {screenStatus ? <FullscreenExitIcon /> : <FullscreenIcon />}
     </Button>

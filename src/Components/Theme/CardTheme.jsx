@@ -1,6 +1,6 @@
 import ListItem from "@mui/material/ListItem";
 import List from "@mui/material/List";
-import cardsPattern from "../../utils/cardsPattern";
+import { cardsPattern } from "../../utils/theme";
 
 import "../Cards/cardStyle.css";
 import { ThemeState } from "../../context/theme";

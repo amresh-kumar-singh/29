@@ -33,13 +33,11 @@ const Alert = forwardRef(function Alert(props, ref) {
 });
 
 const Online = () => {
-  // const [seveary, setOpen] = useState(false);
   const [status, setStatus] = useState(() => {
     return window.navigator.onLine ? "" : "Your Currently Offline";
   });
 
   useEffect(() => {
-    // status && setOpen(true);
     window.addEventListener("online", onlineStatus);
     window.addEventListener("offline", offlineStatus);
     window?.navigator?.serviceWorker?.addEventListener("message", sWMessage);
@@ -48,11 +46,9 @@ const Online = () => {
       if ("isOnline" in data) {
         setStatus(data.isOnline);
       }
-      console.log(`data from service worker Postmessage: ${data.isOnline}`);
     }
     function onlineStatus() {
       setStatus("Back Online");
-      console.log("online");
     }
     function offlineStatus() {
       navigator?.serviceWorker?.controller?.postMessage({ checkOnline: true });
@@ -73,7 +69,6 @@ const Online = () => {
       return;
     }
     setStatus("");
-    // setOpen(false);
   };
 
   return (

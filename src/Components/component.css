@@ -71,12 +71,10 @@
 }
 .avatar {
   width: 12%;
-  /* height: 20%; */
   aspect-ratio: 1;
   position: absolute;
   z-index: 1;
   background: black;
-  /* border: 5px solid darkgrey; */
   border-radius: 50%;
   overflow: hidden;
 }
@@ -128,14 +126,7 @@
   justify-content: center;
   line-height: 0 !important;
 }
-/* .css-8vnh0h-MuiPaper-root-MuiAlert-root,
-.css-1i9p219-MuiPaper-root-MuiAlert-root {
-  justify-content: center;
-  padding: 0 !important;
-} */
-/* .MuiSnackbar-root {
-  opacity: 0.8;
-} */
+
 .rotate-circle {
   display: block;
   width: 92%;
@@ -161,7 +152,11 @@
     transform: rotateZ(360deg);
   }
 }
+
 @media only screen and (max-width: 720px) {
+  .rotate-circle {
+    padding: 0;
+  }
   .scoreboard {
     padding: 5px 10px;
     top: 0;

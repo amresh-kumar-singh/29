@@ -7,7 +7,7 @@ import "./component.css";
 const Scoreboard = () => {
   const { opponentTeam, yourTeam, call } = GameState();
   const { theme } = ThemeState();
-  console.log();
+
   return (
     <div
       className="scoreboard"

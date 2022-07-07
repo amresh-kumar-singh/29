@@ -1,5 +1,5 @@
 import { List, ListItem, ListItemButton, Typography } from "@mui/material";
-import gradient from "../../utils/gradient";
+import { gradient } from "../../utils/theme";
 import { ThemeState } from "../../context/theme";
 
 const TableTheme = () => {

@@ -15,10 +15,9 @@ const Trump = () => {
   const [cover, setCover] = useState(null);
 
   useEffect(() => {
-    console.log(colorCard, colorStatus);
     !colorStatus ? setCover(null) : setCover(colorCard);
   }, [colorStatus]);
-  // console.log("colorStatus:", colorStatus, colorCard);
+
   const handleShow = () => {
     //TODO player is current player also for
     if (
@@ -26,7 +25,6 @@ const Trump = () => {
         (item) => item[1] === (table.length && table[initialPlayer][1])
       ).length === 0
     ) {
-      // setCover(color[1]);
       setColor((prev) => [true, prev[1]]);
     }
   };

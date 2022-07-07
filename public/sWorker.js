@@ -1,5 +1,61 @@
 let cacheName = "v1";
 
+const PutInCache = (req, res) => {
+  caches.open(cacheName).then((cache) => {
+    cache.put(req, res);
+  });
+};
+
+const enableNavigationPreload = async () => {
+  if (self.registration.navigationPreload) {
+    await self.registration.navigationPreload.enable();
+  }
+};
+
+const ImageCache = async ({ req, preloadResponsePromise, fallback }) => {
+  const cacheResponse = await caches.match(req);
+  if (cacheResponse) return cacheResponse;
+
+  const preloadResponse = await preloadResponsePromise;
+  if (preloadResponse) {
+    console.log("preload response: ", preloadResponse);
+    PutInCache(req, preloadResponse.clone());
+    return preloadResponse;
+  }
+
+  try {
+    const response = await fetch(req);
+    PutInCache(req, response.clone());
+    return response;
+  } catch (error) {
+    return fallback;
+  }
+};
+
+const OtherCache = async ({ req, preloadResponsePromise, fallback }) => {
+  const preloadResponse = await preloadResponsePromise;
+  if (preloadResponse) {
+    PutInCache(req, preloadResponse.clone());
+    return preloadResponse;
+  }
+  try {
+    const res = await fetch(req);
+    PutInCache(req, res.clone());
+    return res;
+  } catch (error) {
+    const cacheResponse = await caches.match(req);
+    if (cacheResponse) return cacheResponse;
+    return fallback;
+  }
+};
+
+const fallback = new Response("Network Error Happened", {
+  status: 408,
+  headers: {
+    "Content-Type": "text/plain",
+  },
+});
+
 self.addEventListener("install", (event) => {
   console.log(
     "%c Service Worker Installed:",
@@ -8,6 +64,7 @@ self.addEventListener("install", (event) => {
 });
 
 self.addEventListener("activate", (event) => {
+  event.waitUntil(enableNavigationPreload());
   event.waitUntil(
     caches
       .keys()
@@ -26,25 +83,24 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-  //   let destination = event.request.destination;
-  //   if (destination == "image") {
-  //     console.log(event.request.destination);
-  //   }
-
-  // If network connection will fetch from network else from catche
-
-  event.respondWith(
-    fetch(event.request)
-      .then((res) => {
-        // console.log(event.request);
-        let resClone = res.clone();
-        caches.open(cacheName).then((cache) => {
-          cache.put(event.request, resClone);
-        });
-        return res;
+  let destination = event.request.destination;
+  if (destination == "image") {
+    event.respondWith(
+      ImageCache({
+        req: event.request,
+        preloadResponsePromise: event.preloadResponse,
+        fallback: fallback,
       })
-      .catch(() => caches.match(event.request).then((res) => res))
-  );
+    );
+  } else {
+    event.respondWith(
+      OtherCache({
+        req: event.request,
+        preloadResponsePromise: event.preloadResponse,
+        fallback: fallback,
+      })
+    );
+  }
 });
 
 self.addEventListener("message", (event) => {

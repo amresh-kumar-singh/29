@@ -47,26 +47,43 @@ const useBot = () => {
       );
       // console.log(tableGameMin, "min max", tableGameMax);
       if (playerGameCards.length > 0) {
-        let colorOnTable;
+        let colorMaxOnTable;
         // if ColorStatus is true and not game of color
         if (colorStatus && gameCard[1] !== colorCard[1]) {
-          let colorArr = table.filter(
-            (item) => item && item[1] === colorCard[1]
-          );
-          colorOnTable = colorArr.length;
+          let temp = table.filter((item) => item && item[1] === colorCard[1]);
+          if (temp.length > 0) {
+            const [, tableMax] = minMaxCards(temp);
+            colorMaxOnTable = tableMax;
+          }
         }
-
+        console.log("colorMaxOnTable", colorMaxOnTable);
         const [playerMin, playerMax] = minMaxCards(playerGameCards);
-        _playCard =
-          colorOnTable ||
-          arr.indexOf(tableGameMax[0]) > arr.indexOf(playerMax[0]) //player has bigger card then playMax
-            ? table.indexOf(tableGameMax) === (player + 2) % 4 && //player doesn't have higher card check higher card is of teammate and
-              tableGameMax[0] === "J" && // if yes and it is Jack and
-              ((!colorStatus && call.caller !== player) ||
-                (colorStatus && colorCard[1] !== playerMin[1])) // if color is not shown then give higher cards for points and if color is shown the check for colorcard
+        if (colorMaxOnTable) {
+          _playCard =
+            table.indexOf(colorMaxOnTable) === (player + 2) % 4
               ? playerMax
-              : playerMin
-            : playerMax;
+              : playerMin;
+        } else {
+          _playCard =
+            arr.indexOf(tableGameMax[0]) > arr.indexOf(playerMax[0])
+              ? table.indexOf(tableGameMax) === (player + 2) % 4 &&
+                tableGameMax[0] === "J" &&
+                ((!colorStatus && call.caller !== player) ||
+                  (colorStatus && colorCard[1] !== playerMin[1]))
+                ? playerMax
+                : playerMin
+              : playerMax;
+        }
+        // _playCard =
+        //   colorOnTable ||
+        //   arr.indexOf(tableGameMax[0]) > arr.indexOf(playerMax[0]) //player has bigger card then playMax
+        //     ? table.indexOf(tableGameMax) === (player + 2) % 4 && //player doesn't have higher card check higher card is of teammate and
+        //       tableGameMax[0] === "J" && // if yes and it is Jack and
+        //       ((!colorStatus && call.caller !== player) ||
+        //         (colorStatus && colorCard[1] !== playerMin[1])) // if color is not shown then give higher cards for points and if color is shown the check for colorcard
+        //       ? playerMax
+        //       : playerMin
+        //     : playerMax;
       } else {
         // check color status if false true !statusColor && setStausColor(true)
         let asker;
@@ -103,29 +120,25 @@ const useBot = () => {
               : table.indexOf(tableGameMax) === (player + 2) % 4
               ? otherMax
               : otherMin;
-
-          turn(player, _playCard);
-          return;
+        } else {
+          const [playerColorMin, playerColorMax] =
+            minMaxCards(_playerColorCards);
+          _playCard =
+            tableColorMin !== 0 //color on table
+              ? table.indexOf(tableColorMax) === (player + 2) % 4
+                ? otherMax //table max teamMate or player max small than table
+                : arr.indexOf(tableColorMax[0]) > arr.indexOf(playerColorMax[0])
+                ? otherMin
+                : playerColorMax
+              : table.indexOf(tableGameMax) === (player + 2) % 4 && !asker
+              ? otherMax
+              : playerColorMin;
         }
-        const [playerColorMin, playerColorMax] = minMaxCards(_playerColorCards);
-
-        _playCard =
-          tableColorMin !== 0 //color on table
-            ? table.indexOf(tableColorMax) === (player + 2) % 4
-              ? otherMax //table max teamMate or player max small than table
-              : arr.indexOf(tableColorMax[0]) > arr.indexOf(playerColorMax[0])
-              ? otherMin
-              : playerColorMax
-            : table.indexOf(tableGameMax) === (player + 2) % 4 && !asker
-            ? otherMax
-            : playerColorMin;
       }
     }
-
     turn(player, _playCard);
     return player;
   };
-
   return bot;
 };
 

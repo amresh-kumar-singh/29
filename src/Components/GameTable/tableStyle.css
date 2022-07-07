@@ -12,7 +12,6 @@
 .table-cards {
   height: 40vh;
   width: 40vh;
-  /* background-color: rgba(0, 0, 0, 0.2); */
   z-index: 5;
   position: absolute;
   top: 50%;

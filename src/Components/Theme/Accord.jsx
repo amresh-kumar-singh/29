@@ -7,9 +7,12 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import TableTheme from "./TableTheme";
 import CardTheme from "./CardTheme";
 import ScoreboardTheme from "./ScoreboardTheme";
+import Avatar from "./Avatar";
+import RadioControl from "./RadioControl";
 
 export default function Accord() {
   const [expanded, setExpanded] = React.useState("");
+  const [value, setValue] = React.useState(0);
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -72,10 +75,12 @@ export default function Accord() {
           aria-controls="panel4a-content"
           id="panel4a-header"
         >
-          <Typography>Background</Typography>
+          <Typography>Avatar</Typography>
         </AccordionSummary>
-        <AccordionDetails sx={{ padding: 0, margin: 0 }}>
-          <CardTheme />
+        <AccordionDetails sx={{ padding: 0, margin: 0, width: "inherit" }}>
+          <RadioControl value={value} setValue={setValue} />
+
+          <Avatar value={value} setValue={setValue} />
         </AccordionDetails>
       </Accordion>
     </div>

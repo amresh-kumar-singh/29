@@ -12,8 +12,6 @@ const PlayerScore = () => {
   const [cover, setCover] = useState(null);
 
   useEffect(() => {
-    console.log("player score", score, colorScore);
-    // setNumber((prev) => [(score / 6) | 0, score % 6]);
     score >= 0 ? setType((prev) => "H") : setType((prev) => "S");
   }, [score]);
 
@@ -31,6 +29,3 @@ const PlayerScore = () => {
   );
 };
 export default memo(PlayerScore);
-// console.log("player renderd");
-//number[0]--multiple, number[1]--remainder
-// const [[multiple, remainder], setNumber] = useState([0, 0]);
