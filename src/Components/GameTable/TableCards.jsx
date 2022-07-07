@@ -10,6 +10,7 @@ const TableCards = () => {
   const score = useScore();
   useEffect(() => {
     score();
+    // eslint-disable-next-line
   }, [table]);
 
   return (

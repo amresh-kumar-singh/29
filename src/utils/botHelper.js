@@ -39,7 +39,7 @@ const maxNoCards = (cards) => {
       }
     }
   }
-  console.log(minLength, "min max", max);
+  // console.log(minLength, "min max", max);
   return max; //return C S H D
 };
 

@@ -12,6 +12,7 @@ export default function Avatar({ value }) {
     setTheme((prev) => {
       return {
         ...prev,
+        // eslint-disable-next-line
         avatar: prev.avatar.map((ele, i) => (i == value ? item : ele)),
       };
     });

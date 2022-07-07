@@ -13,6 +13,7 @@ const useStorage = (key, initialValue) => {
 
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(state));
+    // eslint-disable-next-line
   }, [state]);
 
   return [state, setState];

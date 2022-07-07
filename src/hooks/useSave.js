@@ -31,6 +31,7 @@ const useSave = () => {
       });
     }, 2000);
     return () => clearTimeout(timer.current);
+    // eslint-disable-next-line
   }, [currentPlayer]);
 };
 

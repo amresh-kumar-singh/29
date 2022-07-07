@@ -16,6 +16,7 @@ const Trump = () => {
 
   useEffect(() => {
     !colorStatus ? setCover(null) : setCover(colorCard);
+    // eslint-disable-next-line
   }, [colorStatus]);
 
   const handleShow = () => {

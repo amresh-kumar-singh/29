@@ -6,7 +6,6 @@ import points from "../utils/points";
 const getMaxArr = (cards) => {
   let obj = {};
   for (let i in cards) {
-    console.log(obj[cards[i][1]], cards[i], cards);
     obj[cards[i][1]] = obj[cards[i][1]]
       ? [obj[cards[i][1]][0] + 1, obj[cards[i][1]][1] + points[cards[i][0]]] //no of cards[i]s of same color,point total
       : [1, points[cards[i][0]]];

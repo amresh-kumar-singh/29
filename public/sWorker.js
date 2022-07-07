@@ -18,7 +18,7 @@ const ImageCache = async ({ req, preloadResponsePromise, fallback }) => {
 
   const preloadResponse = await preloadResponsePromise;
   if (preloadResponse) {
-    console.log("preload response: ", preloadResponse);
+    // console.log("preload response: ", preloadResponse);
     PutInCache(req, preloadResponse.clone());
     return preloadResponse;
   }
@@ -57,10 +57,10 @@ const fallback = new Response("Network Error Happened", {
 });
 
 self.addEventListener("install", (event) => {
-  console.log(
-    "%c Service Worker Installed:",
-    "background:green; font-size:24px; color:white;"
-  );
+  // console.log(
+  //   "%c Service Worker Installed:",
+  //   "background:green; font-size:24px; color:white;"
+  // );
 });
 
 self.addEventListener("activate", (event) => {
@@ -72,13 +72,13 @@ self.addEventListener("activate", (event) => {
         return Promise.all(
           cacheNames.map((cache) => {
             if (cache !== cacheName) {
-              console.log(`cache with name ${cache} is being Deleted`);
+              // console.log(`cache with name ${cache} is being Deleted`);
               return caches.delete(cache);
             }
           })
         );
       })
-      .catch((e) => console.log("error from activate"))
+      .catch((e) => console.log(e.message))
   );
 });
 
@@ -112,11 +112,9 @@ self.addEventListener("message", (event) => {
     event.waitUntil(
       fetch(req)
         .then((res) => {
-          console.log("Online");
           return sendMessage({ isOnline: "Back Online" });
         })
         .catch(() => {
-          console.log("offline");
           return sendMessage({ isOnline: "Your Currently Offline" });
         })
     );
@@ -129,7 +127,7 @@ async function sendMessage(msg) {
     allClients.map((client) => {
       let channel = new MessageChannel();
       if ("isOnline" in msg) {
-        console.log("sending client online true status");
+        // console.log("sending client online true status");
       }
       return client.postMessage(msg);
     })

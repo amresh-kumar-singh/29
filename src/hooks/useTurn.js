@@ -2,7 +2,7 @@ import { GameState } from "../context/game";
 import playersArr from "../utils/playersArr";
 
 const useTurn = () => {
-  const { setTable, setPlayers, setCurrentPlayer, table } = GameState();
+  const { setTable, setPlayers } = GameState();
 
   function turn(player = 0, card) {
     setTable((prev) => {
@@ -14,6 +14,7 @@ const useTurn = () => {
       return {
         ...prev,
         [playersArr[player]]: prev[playersArr[player]].filter(
+          // eslint-disable-next-line
           (item) => item != card
         ),
       };

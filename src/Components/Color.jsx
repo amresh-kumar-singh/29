@@ -18,6 +18,7 @@ export default function Color({ setDisplayAuction, colorType }) {
       });
     }
     return () => clearTimeout(timerRef.current);
+    // eslint-disable-next-line
   }, []);
 
   function handleColor(item) {

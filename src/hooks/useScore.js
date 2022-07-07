@@ -26,7 +26,7 @@ const useScore = () => {
   } = GameState();
 
   function newGame() {
-    console.log("New Game started");
+    // console.log("New Game started");
 
     setGameCards((prev) => {
       return [
@@ -52,7 +52,7 @@ const useScore = () => {
     if (call.caller === 0 || call.caller === 2) {
       if (opponentTeam.point > 28 - call.call) {
         newGame();
-        console.log("Losser----->YOU");
+        // console.log("Losser----->YOU");
         setYourTeam((prev) => {
           return {
             ...prev,
@@ -67,7 +67,7 @@ const useScore = () => {
           };
         });
       } else if (yourTeam.point >= call.call && yourTeam.point > 16) {
-        console.log("Winner----->YOU");
+        // console.log("Winner----->YOU");
         newGame();
         setYourTeam((prev) => {
           return {
@@ -91,7 +91,7 @@ const useScore = () => {
     //Opponent game
     if (call.caller === 1 || call.caller === 3) {
       if (yourTeam.point > 28 - call.call) {
-        console.log("Losser----->OPPONENT");
+        // console.log("Losser----->OPPONENT");
         newGame();
         setOpponentTeam((prev) => {
           return {
@@ -107,7 +107,7 @@ const useScore = () => {
           };
         });
       } else if (opponentTeam.point >= call.call && opponentTeam.point > 16) {
-        console.log("Winner----->OPPONENT");
+        // console.log("Winner----->OPPONENT");
         newGame();
         setOpponentTeam((prev) => {
           return {
@@ -138,6 +138,7 @@ const useScore = () => {
         };
       });
     }
+    // eslint-disable-next-line
   }, [yourTeam.score]);
   useEffect(() => {
     if (Math.abs(opponentTeam.score) === 6) {
@@ -150,6 +151,7 @@ const useScore = () => {
         };
       });
     }
+    // eslint-disable-next-line
   }, [opponentTeam.score]);
   //--------------------------------Calculating Points---------------------------------
   function score() {
@@ -194,7 +196,7 @@ const useScore = () => {
       setTimeout(() => {
         setTable((prev) => []);
       }, 1000);
-      console.log("winner:", winner, "InitailPlayer:", initialPlayer);
+      // console.log("winner:", winner, "InitailPlayer:", initialPlayer);
       setInitialPlayer((prev) => winner);
       setGameCards((prev) => [...prev, ...table]);
     }

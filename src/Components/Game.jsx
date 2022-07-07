@@ -56,6 +56,7 @@ const Game = () => {
       clearBotColor();
       setCurrentBidder(null);
     }
+    // eslint-disable-next-line
   }, [colorCard]);
 
   useEffect(() => {
@@ -78,6 +79,7 @@ const Game = () => {
       //   [playersArr[call.caller]]: filteredCard,
       // }));
     }
+    // eslint-disable-next-line
   }, [players[playersArr[call.caller]]]);
   return (
     <GameThemeProvider>

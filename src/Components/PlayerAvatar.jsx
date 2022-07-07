@@ -19,6 +19,7 @@ const PlayerAvatar = ({ orientation, currentBidder }) => {
         bot(currentPlayer[0]);
       }, 2000);
     }
+    // eslint-disable-next-line
   }, [currentPlayer]);
 
   return (
