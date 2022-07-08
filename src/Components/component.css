@@ -56,6 +56,10 @@
   right: 0;
   transform: translate(0, -50%);
 }
+.avatar-south {
+  bottom: 0;
+  width: 8% !important;
+}
 .avatar-text {
   background: black;
   position: absolute;

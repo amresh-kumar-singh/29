@@ -1,4 +1,3 @@
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Hand from "./Hand";
 import GameTable from "./GameTable/GameTable";
@@ -6,7 +5,6 @@ import Theme from "./Theme";
 import GameThemeProvider from "../context/theme";
 import { GameState } from "../context/game";
 import useShuffle from "../hooks/useShuffle";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import useDeal from "../hooks/useDeal";
 import Scoreboard from "./Scoreboard";
 import Auction from "./Auction";
@@ -17,13 +15,14 @@ import useDevice from "../hooks/useDevice";
 import Fullscreen from "./Controls/Fullscreen";
 import PWA from "./Controls/PWA";
 import Color from "./Color";
-import useSave from "../hooks/useSave";
 import usePair from "../hooks/usePair";
 import useBotColor from "../hooks/useBotColor";
 import playersArr from "../utils/playersArr";
 import cards from "../utils/cards";
+import StartGame from "./StartGame";
+import ExitGame from "./ExitGame";
 
-const Game = () => {
+const Game = ({ setStartGame }) => {
   const {
     gameCards,
     players,
@@ -32,6 +31,8 @@ const Game = () => {
     setColor,
   } = GameState();
   const [start, setStart] = useState(false);
+  const [suffleCount, setSuffleCount] = useState(false);
+  const timer = useRef();
   const [displayAuction, setDisplayAuction] = useState(0);
   const [seventh, setSeventh] = useState(null);
   const [currentBidder, setCurrentBidder] = useState(null);
@@ -42,25 +43,30 @@ const Game = () => {
   const deviceType = useDevice();
   const { colorType, colorPicker, clearBotColor } = useBotColor();
   usePair();
-  useSave(); //for development disabled it
 
   const handleShuffle = () => {
+    setStart(true);
+    if (gameCards.length !== 32) return;
     const rand =
       JSON.stringify(gameCards) === JSON.stringify(cards.game)
-        ? 10
+        ? 5
         : (Math.random() * 5 + 1) | 0;
-
-    for (let i = 0; i <= rand; i++) {
-      shuffle();
-    }
-    // setTimeout(() => {
-    //   // handleDeal();
-    //   setStart(false);
-    // }, 1000);
+    setSuffleCount(rand);
   };
-  // useEffect(() => {
-  //   start && gameCards.length === 32 && handleDeal();
-  // }, [start]);
+
+  useEffect(() => {
+    if (suffleCount >= 0 && suffleCount !== false && gameCards.length === 32) {
+      shuffle();
+      setSuffleCount((prev) => prev - 1);
+    }
+    if (suffleCount === -1 && gameCards.length === 32) {
+      timer.current = setTimeout(() => {
+        handleDeal();
+      }, 500);
+    }
+    return () => clearTimeout(timer.current);
+    // eslint-disable-next-line
+  }, [suffleCount]);
 
   const handleDeal = () => {
     setDisplayAuction(deal());
@@ -72,9 +78,9 @@ const Game = () => {
       clearBotColor();
       setCurrentBidder(null);
     }
-    // if (!colorCard && gameCards.length === 32) {
-    //   setStart(true);
-    // }
+    if (!colorCard && gameCards.length === 32) {
+      setStart(false);
+    }
     // eslint-disable-next-line
   }, [colorCard]);
 
@@ -100,59 +106,27 @@ const Game = () => {
     }
     // eslint-disable-next-line
   }, [players[playersArr[call.caller]]]);
+
   return (
     <GameThemeProvider>
       <Box sx={{ position: "relative", height: "100vh", width: "100vw" }}>
-        {/* Development */}
-        {[1, 2, 3].map((item) => {
-          return <Hand player={item} key={item} seventh={seventh} />;
-        })}
         {/* Production */}
-        <Hand player={0} seventh={seventh} />;
+        {start && gameCards.length !== 32 && (
+          <Hand player={0} seventh={seventh} />
+        )}
         <GameTable />
         <Theme />
-        {/* Suffle */}
-        <Button
-          variant="contained"
-          onClick={handleShuffle}
-          sx={{ zIndex: 3, margin: "20px" }}
-          disabled={gameCards.length === 0 || players.south.length > 0}
-        >
-          Shuffle
-        </Button>
-        {/* Deal */}
-        <Button
-          variant="contained"
-          onClick={handleDeal}
-          sx={{ zIndex: 3 }}
-          // disabled={gameCards.length === 0 }
-          disabled={gameCards.length !== 32}
-        >
-          Deal
-        </Button>
+
         {/* Start Game */}
-        {start && (
-          <Button
-            variant="contained"
-            sx={{
-              position: "absolute",
-              zIndex: "6",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%,-50%)",
-            }}
-            onClick={handleShuffle}
-            startIcon={<PlayArrowIcon />}
-          >
-            Start Game
-          </Button>
-        )}
+        {!start && <StartGame handleShuffle={handleShuffle} />}
+        <ExitGame setStartGame={setStartGame} />
         {deviceType === "Mobile" && <Fullscreen />}
         <PWA />
         <Scoreboard />
         <PlayerAvatar orientation="north" currentBidder={currentBidder} />
         <PlayerAvatar orientation="east" currentBidder={currentBidder} />
         <PlayerAvatar orientation="west" currentBidder={currentBidder} />
+        <PlayerAvatar orientation="south" currentBidder={currentBidder} />
         {displayAuction === 1 && (
           <Auction
             setDisplayAuction={setDisplayAuction}

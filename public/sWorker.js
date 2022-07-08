@@ -1,4 +1,61 @@
 let cacheName = "v1";
+const prefetchData = [
+  "7C",
+  "7D",
+  "7H",
+  "7S",
+  "8C",
+  "8D",
+  "8H",
+  "8S",
+  "9C",
+  "9D",
+  "9H",
+  "9S",
+  "1C",
+  "1D",
+  "1H",
+  "1S",
+  "AC",
+  "AD",
+  "AH",
+  "AS",
+  "JC",
+  "JD",
+  "JH",
+  "JS",
+  "KC",
+  "KD",
+  "KH",
+  "KS",
+  "QC",
+  "QD",
+  "QH",
+  "QS",
+  "2D",
+  "2H",
+  "2S",
+  "3C",
+  "3D",
+  "3H",
+  "3S",
+  "4C",
+  "4D",
+  "4H",
+  "4S",
+  "5C",
+  "5D",
+  "5H",
+  "5S",
+  "6C",
+  "6D",
+  "6H",
+  "6S",
+];
+const prefetchImage = prefetchData.map(
+  (item) =>
+    `/cards/${item[0] >= 2 && item[0] <= 6 ? "Score" : "Game"}/${item}.png`
+);
 
 const PutInCache = (req, res) => {
   caches.open(cacheName).then((cache) => {
@@ -16,14 +73,14 @@ const ImageCache = async ({ req, preloadResponsePromise, fallback }) => {
   const cacheResponse = await caches.match(req);
   if (cacheResponse) return cacheResponse;
 
-  const preloadResponse = await preloadResponsePromise;
-  if (preloadResponse) {
-    // console.log("preload response: ", preloadResponse);
-    PutInCache(req, preloadResponse.clone());
-    return preloadResponse;
-  }
-
   try {
+    // if (preloadResponsePromise !== null) {
+    const preloadResponse = await preloadResponsePromise;
+    if (preloadResponse) {
+      PutInCache(req, preloadResponse.clone());
+      return preloadResponse;
+    }
+    // }
     const response = await fetch(req);
     PutInCache(req, response.clone());
     return response;
@@ -33,10 +90,8 @@ const ImageCache = async ({ req, preloadResponsePromise, fallback }) => {
 };
 
 const OtherCache = async ({ req, preloadResponsePromise, fallback }) => {
-  console.log(navigator.onLine);
   try {
-    if (!navigator.onLine) throw Error("No internet connnction");
-    console.log("controle came");
+    if (!navigator.onLine) throw Error("No internet connection");
     const preloadResponse = await preloadResponsePromise;
     if (preloadResponse) {
       PutInCache(req, preloadResponse.clone());
@@ -46,8 +101,6 @@ const OtherCache = async ({ req, preloadResponsePromise, fallback }) => {
     PutInCache(req, res.clone());
     return res;
   } catch (error) {
-    console.log("running from cache");
-
     const cacheResponse = await caches.match(req);
     if (cacheResponse) return cacheResponse;
     return fallback;
@@ -66,6 +119,23 @@ self.addEventListener("install", (event) => {
   //   "%c Service Worker Installed:",
   //   "background:green; font-size:24px; color:white;"
   // );
+  event.waitUntil(
+    caches
+      .open(cacheName)
+      .then((cache) => {
+        return Promise.all(
+          prefetchImage.map((url) => {
+            return fetch(url).then((res) => {
+              if (res.status >= 400) throw Error("Request Failed");
+              return cache.put(url, res);
+            });
+          })
+        );
+      })
+      .catch((error) => {
+        console.log("error: Install", error);
+      })
+  );
 });
 
 self.addEventListener("activate", (event) => {

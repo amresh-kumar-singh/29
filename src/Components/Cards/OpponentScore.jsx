@@ -7,7 +7,7 @@ const OpponentScore = () => {
     opponentTeam: { score, colorScore },
   } = GameState();
 
-  const [type, setType] = useState();
+  const [type, setType] = useState("D");
   const [cover, setCover] = useState(null);
 
   useEffect(() => {

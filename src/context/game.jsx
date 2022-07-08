@@ -21,7 +21,7 @@ export default function GameProvider({ children }) {
       color: [false, ""],
     },
   });
-  const [gameCards, setGameCards] = useState(game.deck);
+  const [gameCards, setGameCards] = useState([...new Set(game.deck)]);
   const [scoreCards, SetScoreCards] = useState(game.score);
   const [table, setTable] = useState(() =>
     game.table.map((item) => (item ? item : undefined))
@@ -42,6 +42,7 @@ export default function GameProvider({ children }) {
   useEffect(() => {
     //here can give mounted
     mounted && setInitialPlayer((dealer + 1) % 4);
+    // eslint-disable-next-line
   }, [dealer]);
 
   useEffect(() => {
@@ -50,17 +51,14 @@ export default function GameProvider({ children }) {
       return;
     }
     if (table === null || table.filter((item) => item).length === 4) {
-      // console.log("length 44444", table);
       return;
     }
     if (table.length === 0) {
       setCurrentPlayer([initialPlayer]);
-      // console.log("table changed--table length 0", table);
     } else {
-      // console.log("prev current ", currentPlayer);
       setCurrentPlayer((prev) => [(prev[0] + 1) % 4]);
-      // console.log("table changed--", table);
     }
+    // eslint-disable-next-line
   }, [table]);
 
   return (

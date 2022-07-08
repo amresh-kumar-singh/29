@@ -37,7 +37,7 @@ export default function Avatar({ value }) {
             loading="lazy"
             style={{ borderRadius: "50%", background: "black" }}
           />
-          {value && item === theme.avatar[value] && (
+          {(value === 0 || value) && item === theme.avatar[value] && (
             <Typography
               className="avatar-text"
               sx={{

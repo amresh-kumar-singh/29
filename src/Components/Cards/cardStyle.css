@@ -124,7 +124,7 @@
 }
 /* Table Cards */
 .opponent {
-  left: 24%;
+  left: 22%;
 }
 .player {
   right: 25%;
@@ -141,7 +141,7 @@
   font-size: calc(10px + 1vmin);
   font-family: "Inter", sans-serif;
   font-weight: 500;
-  top: 30%;
+  top: 25%;
   z-index: 11;
   left: 50%;
   /* transform: translate(-50%, -50%); */
@@ -156,13 +156,13 @@
   left: 10%;
 }
 .opponentText {
-  left: 82%;
+  left: 80%;
 }
 
 .card {
   position: relative;
   height: 24vh;
-  top: 50%;
+  top: 45%;
   display: inline-block;
   aspect-ratio: 123/179;
   transform: translate(0%, -50%);

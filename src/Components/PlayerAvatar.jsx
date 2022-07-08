@@ -20,7 +20,8 @@ const PlayerAvatar = ({ orientation, currentBidder }) => {
     if (
       playersArr[currentPlayer[0]] === orientation &&
       players[playersArr[currentPlayer[0]]].length !== 0 &&
-      colorCard
+      colorCard &&
+      currentPlayer[0] !== 0
     ) {
       setTimeout(() => {
         bot(currentPlayer[0]);
@@ -40,13 +41,12 @@ const PlayerAvatar = ({ orientation, currentBidder }) => {
     >
       <div
         className={`rotate-circle ${
-          (currentBidder &&
-            playersArr[currentBidder] === orientation &&
-            "active-bidder") ||
-          (playersArr[table === null ? initialPlayer : currentPlayer] ===
-            orientation &&
-            !currentBidder &&
-            "active")
+          currentBidder || currentBidder === 0
+            ? playersArr[currentBidder] === orientation && "active-bidder"
+            : playersArr[table === null ? initialPlayer : currentPlayer] ===
+                orientation &&
+              !currentBidder &&
+              "active"
         }`}
       ></div>
       <div

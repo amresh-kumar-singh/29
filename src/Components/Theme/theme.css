@@ -1,11 +1,16 @@
 .card-theme-item {
-  height: 12vw;
+  height: 6vw;
 }
 @media only screen and (max-width: 720px) {
   .theme-avatar,
   .card-theme {
     width: 40vw;
     margin: 0;
+  }
+}
+@media only screen and (max-width: 920px) {
+  .card-theme-item {
+    height: 12vw;
   }
 }
 
