@@ -10,14 +10,14 @@ export default function GameProvider({ children }) {
     table: [],
     players: { south: [], north: [], east: [], west: [] },
     teams: {
-      yourTeam: { point: 0, score: -5, colorScore: 1 },
-      opponentTeam: { point: 0, score: 5, colorScore: -1 },
+      yourTeam: { point: 0, score: 0, colorScore: 0 },
+      opponentTeam: { point: 0, score: 0, colorScore: 0 },
       call: { call: -1, caller: -1 },
     },
     tableStatus: {
-      dealer: 1,
-      initialPlayer: 2,
-      currentPlayer: [2],
+      dealer: 0,
+      initialPlayer: 1,
+      currentPlayer: [1],
       color: [false, ""],
     },
   });

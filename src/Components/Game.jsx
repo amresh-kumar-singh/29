@@ -29,14 +29,16 @@ const Game = ({ setStartGame }) => {
     call,
     color: [, colorCard],
     setColor,
+    table,
   } = GameState();
   const [start, setStart] = useState(false);
   const [suffleCount, setSuffleCount] = useState(false);
-  const timer = useRef();
   const [displayAuction, setDisplayAuction] = useState(0);
   const [seventh, setSeventh] = useState(null);
   const [currentBidder, setCurrentBidder] = useState(null);
+  const timer = useRef();
   const timerRef = useRef();
+  const timerStartRef = useRef();
 
   const deal = useDeal();
   const shuffle = useShuffle();
@@ -79,8 +81,11 @@ const Game = ({ setStartGame }) => {
       setCurrentBidder(null);
     }
     if (!colorCard && gameCards.length === 32) {
-      setStart(false);
+      timerStartRef.current = setTimeout(() => {
+        setStart(false);
+      }, 1020);
     }
+    return () => clearTimeout(timerStartRef.current);
     // eslint-disable-next-line
   }, [colorCard]);
 
@@ -120,6 +125,7 @@ const Game = ({ setStartGame }) => {
         {/* Start Game */}
         {!start && <StartGame handleShuffle={handleShuffle} />}
         <ExitGame setStartGame={setStartGame} />
+
         {deviceType === "Mobile" && <Fullscreen />}
         <PWA />
         <Scoreboard />

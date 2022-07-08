@@ -43,7 +43,6 @@ export default function Color({ setDisplayAuction, colorType }) {
           <img
             alt={item}
             src={`cards/Score/${item}.png`}
-            loading="lazy"
             style={{
               height: "16vmin",
               objectFit: "contain",
