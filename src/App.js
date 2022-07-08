@@ -4,12 +4,14 @@ import Online from "./Components/Controls/Online";
 import GameProvider from "./context/game";
 import Start from "./Start";
 import { useState } from "react";
+import PWA from "./Components/Controls/PWA";
 
 function App() {
   const [startGame, setStartGame] = useState(false);
   return (
     <div className="App">
       <Online />
+      <PWA />
       {!startGame ? (
         <Start setStartGame={setStartGame} />
       ) : (

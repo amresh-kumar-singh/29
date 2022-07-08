@@ -13,7 +13,6 @@ import PlayerAvatar from "./PlayerAvatar";
 import useDevice from "../hooks/useDevice";
 
 import Fullscreen from "./Controls/Fullscreen";
-import PWA from "./Controls/PWA";
 import Color from "./Color";
 import usePair from "../hooks/usePair";
 import useBotColor from "../hooks/useBotColor";
@@ -127,7 +126,6 @@ const Game = ({ setStartGame }) => {
         <ExitGame setStartGame={setStartGame} />
 
         {deviceType === "Mobile" && <Fullscreen />}
-        <PWA />
         <Scoreboard />
         <PlayerAvatar orientation="north" currentBidder={currentBidder} />
         <PlayerAvatar orientation="east" currentBidder={currentBidder} />
