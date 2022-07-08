@@ -6,7 +6,7 @@ import Theme from "./Theme";
 import GameThemeProvider from "../context/theme";
 import { GameState } from "../context/game";
 import useShuffle from "../hooks/useShuffle";
-
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import useDeal from "../hooks/useDeal";
 import Scoreboard from "./Scoreboard";
 import Auction from "./Auction";
@@ -21,6 +21,7 @@ import useSave from "../hooks/useSave";
 import usePair from "../hooks/usePair";
 import useBotColor from "../hooks/useBotColor";
 import playersArr from "../utils/playersArr";
+import cards from "../utils/cards";
 
 const Game = () => {
   const {
@@ -30,6 +31,7 @@ const Game = () => {
     color: [, colorCard],
     setColor,
   } = GameState();
+  const [start, setStart] = useState(false);
   const [displayAuction, setDisplayAuction] = useState(0);
   const [seventh, setSeventh] = useState(null);
   const [currentBidder, setCurrentBidder] = useState(null);
@@ -43,8 +45,22 @@ const Game = () => {
   useSave(); //for development disabled it
 
   const handleShuffle = () => {
-    shuffle();
+    const rand =
+      JSON.stringify(gameCards) === JSON.stringify(cards.game)
+        ? 10
+        : (Math.random() * 5 + 1) | 0;
+
+    for (let i = 0; i <= rand; i++) {
+      shuffle();
+    }
+    // setTimeout(() => {
+    //   // handleDeal();
+    //   setStart(false);
+    // }, 1000);
   };
+  // useEffect(() => {
+  //   start && gameCards.length === 32 && handleDeal();
+  // }, [start]);
 
   const handleDeal = () => {
     setDisplayAuction(deal());
@@ -56,6 +72,9 @@ const Game = () => {
       clearBotColor();
       setCurrentBidder(null);
     }
+    // if (!colorCard && gameCards.length === 32) {
+    //   setStart(true);
+    // }
     // eslint-disable-next-line
   }, [colorCard]);
 
@@ -111,6 +130,23 @@ const Game = () => {
         >
           Deal
         </Button>
+        {/* Start Game */}
+        {start && (
+          <Button
+            variant="contained"
+            sx={{
+              position: "absolute",
+              zIndex: "6",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%,-50%)",
+            }}
+            onClick={handleShuffle}
+            startIcon={<PlayArrowIcon />}
+          >
+            Start Game
+          </Button>
+        )}
         {deviceType === "Mobile" && <Fullscreen />}
         <PWA />
         <Scoreboard />

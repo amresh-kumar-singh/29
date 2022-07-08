@@ -15,11 +15,13 @@ const PlayerCards = ({ player, card }) => {
       style={{ zIndex: zIndex, height: "24vmin" }}
       className={playersArr[player]}
     >
-      <img
-        src={`cards/Game/${card}.png`}
-        alt={card && "29-Playing-Card-Game"}
-        height="100%"
-      />
+      {card && (
+        <img
+          src={`cards/Game/${card}.png`}
+          alt={card && "29-Playing-Card-Game"}
+          height="100%"
+        />
+      )}
     </div>
   );
 };

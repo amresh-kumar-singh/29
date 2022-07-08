@@ -7,13 +7,20 @@ import "./component.css";
 
 const PlayerAvatar = ({ orientation, currentBidder }) => {
   const { theme } = ThemeState();
-  const { initialPlayer, currentPlayer, players, table } = GameState();
+  const {
+    initialPlayer,
+    currentPlayer,
+    players,
+    table,
+    color: [, colorCard],
+  } = GameState();
   const bot = useBot();
 
   useEffect(() => {
     if (
       playersArr[currentPlayer[0]] === orientation &&
-      players[playersArr[currentPlayer[0]]].length !== 0
+      players[playersArr[currentPlayer[0]]].length !== 0 &&
+      colorCard
     ) {
       setTimeout(() => {
         bot(currentPlayer[0]);

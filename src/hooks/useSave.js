@@ -18,18 +18,20 @@ const useSave = () => {
   const timer = useRef(false);
 
   useEffect(() => {
-    timer.current = setTimeout(() => {
-      setGame((prev) => {
-        return {
-          ...prev,
-          deck: gameCards,
-          table: table,
-          players: players,
-          teams: { yourTeam, opponentTeam, call },
-          tableStatus: { dealer, initialPlayer, currentPlayer, color },
-        };
-      });
-    }, 2000);
+    if (color[1]) {
+      timer.current = setTimeout(() => {
+        setGame((prev) => {
+          return {
+            ...prev,
+            deck: gameCards,
+            table: table,
+            players: players,
+            teams: { yourTeam, opponentTeam, call },
+            tableStatus: { dealer, initialPlayer, currentPlayer, color },
+          };
+        });
+      }, 2000);
+    }
     return () => clearTimeout(timer.current);
     // eslint-disable-next-line
   }, [currentPlayer]);

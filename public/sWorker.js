@@ -33,16 +33,21 @@ const ImageCache = async ({ req, preloadResponsePromise, fallback }) => {
 };
 
 const OtherCache = async ({ req, preloadResponsePromise, fallback }) => {
-  const preloadResponse = await preloadResponsePromise;
-  if (preloadResponse) {
-    PutInCache(req, preloadResponse.clone());
-    return preloadResponse;
-  }
+  console.log(navigator.onLine);
   try {
+    if (!navigator.onLine) throw Error("No internet connnction");
+    console.log("controle came");
+    const preloadResponse = await preloadResponsePromise;
+    if (preloadResponse) {
+      PutInCache(req, preloadResponse.clone());
+      return preloadResponse;
+    }
     const res = await fetch(req);
     PutInCache(req, res.clone());
     return res;
   } catch (error) {
+    console.log("running from cache");
+
     const cacheResponse = await caches.match(req);
     if (cacheResponse) return cacheResponse;
     return fallback;
