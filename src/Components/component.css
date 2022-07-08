@@ -157,7 +157,7 @@
   }
 }
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 920px) {
   .rotate-circle {
     padding: 0;
   }
@@ -181,6 +181,10 @@
     letter-spacing: 0;
     bottom: -10%;
     font-size: 0.7em;
+  }
+  .avatar-south .avatar-text {
+    bottom: -12%;
+    font-size: 0.5rem;
   }
   .auction span {
     border: 1px solid black;

@@ -187,7 +187,7 @@
 
 @media only screen and (max-width: 920px) {
   .text {
-    top: 27%;
+    top: 23%;
     font-size: small;
     transform: translate(-16%, 0);
   }
