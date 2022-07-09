@@ -28,13 +28,13 @@ const Game = ({ setStartGame }) => {
     call,
     color: [, colorCard],
     setColor,
-    table,
   } = GameState();
   const [start, setStart] = useState(false);
   const [suffleCount, setSuffleCount] = useState(false);
   const [displayAuction, setDisplayAuction] = useState(0);
   const [seventh, setSeventh] = useState(null);
   const [currentBidder, setCurrentBidder] = useState(null);
+  const [visited, setVisited] = useState([]);
   const timer = useRef();
   const timerRef = useRef();
   const timerStartRef = useRef();
@@ -76,6 +76,7 @@ const Game = ({ setStartGame }) => {
   useEffect(() => {
     if (colorCard) {
       gameCards.length === 16 && deal();
+      setVisited([]);
       clearBotColor();
       setCurrentBidder(null);
     }
@@ -127,15 +128,33 @@ const Game = ({ setStartGame }) => {
 
         {deviceType === "Mobile" && <Fullscreen />}
         <Scoreboard />
-        <PlayerAvatar orientation="north" currentBidder={currentBidder} />
-        <PlayerAvatar orientation="east" currentBidder={currentBidder} />
-        <PlayerAvatar orientation="west" currentBidder={currentBidder} />
-        <PlayerAvatar orientation="south" currentBidder={currentBidder} />
+        <PlayerAvatar
+          orientation="north"
+          currentBidder={currentBidder}
+          visited={visited}
+        />
+        <PlayerAvatar
+          orientation="east"
+          currentBidder={currentBidder}
+          visited={visited}
+        />
+        <PlayerAvatar
+          orientation="west"
+          currentBidder={currentBidder}
+          visited={visited}
+        />
+        <PlayerAvatar
+          orientation="south"
+          currentBidder={currentBidder}
+          visited={visited}
+        />
         {displayAuction === 1 && (
           <Auction
             setDisplayAuction={setDisplayAuction}
             colorPicker={colorPicker}
             setCurrentBidder={setCurrentBidder}
+            visited={visited}
+            setVisited={setVisited}
           />
         )}
         {displayAuction === 2 && (

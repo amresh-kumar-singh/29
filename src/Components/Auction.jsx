@@ -8,16 +8,23 @@ import "./component.css";
 
 let arr = [17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29];
 
-const Auction = ({ setDisplayAuction, colorPicker, setCurrentBidder }) => {
+const Auction = ({
+  setDisplayAuction,
+  colorPicker,
+  setCurrentBidder,
+  visited,
+  setVisited,
+}) => {
   const { call, setCall, dealer } = GameState();
   const [bidder, setBidder] = useState([(dealer + 1) % 4, (dealer + 2) % 4]);
-  const [visited, setVisited] = useState([]);
   const timerRef = useRef();
 
   useEffect(() => {
     setCurrentBidder(bidder[0]);
   }, [bidder[0]]);
-
+  // useEffect(() => {
+  //   setVisited([]);
+  // }, []);
   useEffect(() => {
     if (bidder[0] !== 0) {
       const choice = colorPicker(bidder[0]);
@@ -67,12 +74,20 @@ const Auction = ({ setDisplayAuction, colorPicker, setCurrentBidder }) => {
   };
 
   return (
-    <Grid container spacing={4} className="auction">
+    <Grid
+      container
+      spacing={4}
+      className="auction"
+      sx={{ visibility: bidder[0] === 0 ? "initial" : "hidden" }}
+    >
       <Grid
         item
         xs={12}
         component="span"
-        sx={{ fontFamily: "auto", cursor: "auto !important" }}
+        sx={{
+          fontFamily: "auto",
+          cursor: "auto !important",
+        }}
       >
         {playersArr[bidder[0]]}
       </Grid>

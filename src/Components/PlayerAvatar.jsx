@@ -5,7 +5,7 @@ import useBot from "../hooks/useBot";
 import playersArr from "../utils/playersArr";
 import "./component.css";
 
-const PlayerAvatar = ({ orientation, currentBidder }) => {
+const PlayerAvatar = ({ orientation, currentBidder, visited }) => {
   const { theme } = ThemeState();
   const {
     initialPlayer,
@@ -13,6 +13,7 @@ const PlayerAvatar = ({ orientation, currentBidder }) => {
     players,
     table,
     color: [, colorCard],
+    call,
   } = GameState();
   const bot = useBot();
 
@@ -25,7 +26,7 @@ const PlayerAvatar = ({ orientation, currentBidder }) => {
     ) {
       setTimeout(() => {
         bot(currentPlayer[0]);
-      }, 2000);
+      }, 1500);
     }
     // eslint-disable-next-line
   }, [currentPlayer]);
@@ -66,7 +67,13 @@ const PlayerAvatar = ({ orientation, currentBidder }) => {
             color: "#" + theme.scoreboard.color,
           }}
         >
-          {orientation}
+          {visited.length === 0
+            ? orientation
+            : visited.includes(playersArr.indexOf(orientation))
+            ? "Pass"
+            : playersArr.indexOf(orientation) === call.caller
+            ? call.call
+            : orientation}
         </p>
       </div>
     </div>
