@@ -39,6 +39,7 @@ export default function GameProvider({ children }) {
     game.tableStatus.currentPlayer
   );
   const [mounted, setMounted] = useState(false);
+  const [pairHolder, setPairHolder] = useState("");
   useEffect(() => {
     //here can give mounted
     mounted && setInitialPlayer((dealer + 1) % 4);
@@ -87,6 +88,8 @@ export default function GameProvider({ children }) {
         setDealer,
         currentPlayer,
         setCurrentPlayer,
+        pairHolder,
+        setPairHolder,
       }}
     >
       {children}

@@ -23,11 +23,10 @@ const useScore = () => {
     setCall,
     setColor,
     color: [colorStatus, colorCard],
+    setPairHolder,
   } = GameState();
 
   function newGame() {
-    // console.log("New Game started");
-
     setGameCards((prev) => {
       return [
         ...prev,
@@ -41,7 +40,7 @@ const useScore = () => {
     setDealer((prev) => (prev + 1) % 4);
     setCall({ call: -1, caller: -1 });
     setColor([false, ""]);
-
+    setPairHolder("");
     setTimeout(() => {
       setTable([]); //previous was null
     }, 1000);
@@ -50,13 +49,16 @@ const useScore = () => {
   useEffect(() => {
     //Players game
     if (call.caller === 0 || call.caller === 2) {
-      if (opponentTeam.point > 28 - call.call) {
+      if (
+        opponentTeam.point > 28 - call.call + call.call / 2 ||
+        (yourTeam.point >= call.call / 2 && opponentTeam.point > 28 - call.call)
+      ) {
         newGame();
         // console.log("Losser----->YOU");
         setYourTeam((prev) => {
           return {
             ...prev,
-            score: prev.score - 1,
+            score: prev.point < call.call / 2 ? prev.score - 2 : prev.score - 1,
             point: 0,
           };
         });
@@ -66,13 +68,18 @@ const useScore = () => {
             point: 0,
           };
         });
-      } else if (yourTeam.point >= call.call && yourTeam.point > 16) {
+      } else if (
+        (yourTeam.point >= call.call &&
+          yourTeam.point > 16 &&
+          opponentTeam.point > 0) ||
+        yourTeam.point >= 28
+      ) {
         // console.log("Winner----->YOU");
         newGame();
         setYourTeam((prev) => {
           return {
             ...prev,
-            score: prev.score + 1,
+            score: prev.point >= 28 ? prev.score + 2 : prev.score + 1,
             point: 0,
           };
         });
@@ -90,13 +97,16 @@ const useScore = () => {
   useEffect(() => {
     //Opponent game
     if (call.caller === 1 || call.caller === 3) {
-      if (yourTeam.point > 28 - call.call) {
+      if (
+        yourTeam.point > 28 - call.call + call.call / 2 ||
+        (opponentTeam.point >= call.call / 2 && yourTeam.point > 28 - call.call)
+      ) {
         // console.log("Losser----->OPPONENT");
         newGame();
         setOpponentTeam((prev) => {
           return {
             ...prev,
-            score: prev.score - 1,
+            score: prev.point < call.call / 2 ? prev.score - 2 : prev.score - 1,
             point: 0,
           };
         });
@@ -106,13 +116,18 @@ const useScore = () => {
             point: 0,
           };
         });
-      } else if (opponentTeam.point >= call.call && opponentTeam.point > 16) {
+      } else if (
+        (opponentTeam.point >= call.call &&
+          opponentTeam.point > 16 &&
+          yourTeam.point > 0) ||
+        opponentTeam.point >= 28
+      ) {
         // console.log("Winner----->OPPONENT");
         newGame();
         setOpponentTeam((prev) => {
           return {
             ...prev,
-            score: prev.score + 1,
+            score: prev.point >= 28 ? prev.score + 2 : prev.score + 1,
             point: 0,
           };
         });
@@ -128,7 +143,7 @@ const useScore = () => {
   }, [opponentTeam.point, yourTeam.point]);
   //Color Score
   useEffect(() => {
-    if (Math.abs(yourTeam.score) === 6) {
+    if (Math.abs(yourTeam.score) >= 6) {
       setYourTeam((prev) => {
         return {
           ...prev,
@@ -141,7 +156,7 @@ const useScore = () => {
     // eslint-disable-next-line
   }, [yourTeam.score]);
   useEffect(() => {
-    if (Math.abs(opponentTeam.score) === 6) {
+    if (Math.abs(opponentTeam.score) >= 6) {
       setOpponentTeam((prev) => {
         return {
           ...prev,

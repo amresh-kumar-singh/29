@@ -20,6 +20,7 @@ import playersArr from "../utils/playersArr";
 import cards from "../utils/cards";
 import StartGame from "./StartGame";
 import ExitGame from "./ExitGame";
+import Pair from "./Pair";
 
 const Game = ({ setStartGame }) => {
   const {
@@ -28,6 +29,7 @@ const Game = ({ setStartGame }) => {
     call,
     color: [, colorCard],
     setColor,
+    pairHolder,
   } = GameState();
   const [start, setStart] = useState(false);
   const [suffleCount, setSuffleCount] = useState(false);
@@ -148,6 +150,7 @@ const Game = ({ setStartGame }) => {
           currentBidder={currentBidder}
           visited={visited}
         />
+        {pairHolder && <Pair />}
         {displayAuction === 1 && (
           <Auction
             setDisplayAuction={setDisplayAuction}

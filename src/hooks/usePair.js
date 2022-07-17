@@ -19,12 +19,22 @@ const usePair = () => {
     color: [colorStatus, colorCard],
     call,
     setCall,
+    pairHolder,
+    setPairHolder,
+    currentPlayer,
+    table,
   } = GameState();
 
   useEffect(() => {
-    if (colorStatus) {
+    if (colorStatus && !pairHolder) {
       //check who has pair
-      const playerWithPair = checkPair(players, colorCard);
+      let playersWithTable = {
+        ...players,
+        [playersArr[currentPlayer[0]]]: table[currentPlayer[0]]
+          ? [...players[playersArr[currentPlayer[0]]], table[currentPlayer[0]]]
+          : [...players[playersArr[currentPlayer[0]]]],
+      };
+      const playerWithPair = checkPair(playersWithTable, colorCard);
       if (playerWithPair) {
         const index = playersArr.indexOf(playerWithPair);
         if (index === call.caller || (index + 2) % 4 === call.caller) {
@@ -34,6 +44,7 @@ const usePair = () => {
               call: prev.call > 20 ? prev.call - 3 : 17,
             };
           });
+          setPairHolder(0 + playerWithPair);
         } else {
           setCall((prev) => {
             return {
@@ -41,6 +52,7 @@ const usePair = () => {
               call: prev.call + 3,
             };
           });
+          setPairHolder(1 + playerWithPair);
         }
       }
     }
