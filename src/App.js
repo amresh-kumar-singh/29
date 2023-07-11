@@ -8,6 +8,7 @@ import PWA from "./Components/Controls/PWA";
 
 function App() {
   const [startGame, setStartGame] = useState(false);
+  //1
   return (
     <div className="App">
       <Online />
