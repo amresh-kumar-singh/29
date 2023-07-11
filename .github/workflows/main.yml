@@ -15,6 +15,6 @@ jobs:
           key: '${{ secrets.SECRET_PRIVATE_KEY }}'
           port: 22
           script: |
-            cd /var/www/next/game/build
+            cd /var/www/next/game
             npm install
             npm run build
