@@ -12,9 +12,9 @@ jobs:
         with:
           host: '${{ secrets.HOST }}'
           username: '${{ secrets.USERNAME }}'
-          key: '${{ secrets.SSH_PRIVATE_KEY }}'
+          key: '${{ secrets.SECRET_PRIVATE_KEY }}'
           port: 22
           script: |
-            cd /var/www/vite-project/vite-project
+            cd /var/www/next/game/build
             npm install
             npm run build
