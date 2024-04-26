@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# Twenty-Nine Card Game
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The Twenty-Nine card game is a South Asian trick-taking card game played with four players in two partnerships.
 
-## Available Scripts
+## Rules
 
-In the project directory, you can run:
+### Objective
+The objective is to win tricks that contain valuable cards. A trick is a hand in a trick-taking game where each player plays a single card.
 
-### `npm start`
+### Cards
+- The game uses only 32 cards from a standard 52-card deck.
+- Each suit has 8 cards: J (high), 9, A, 10, K, Q, 8, and 7 (low).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Card Values
+- Jacks: 3 points
+- Nines: 2 points
+- Aces: 1 point
+- Tens: 1 point
+- K, Q, 8, 7: 0 points
+- Total points in the deck: 28 points
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Bidding Phase
+- Players bid to determine the trump suit and target score.
+- Bidding starts with the player to the left of the dealer and moves left.
+- The highest bidder wins and selects the trump suit.
+- The minimum bid is 16, and the maximum is 28. (Additional one point for the last hand)
 
-### `npm test`
+### The Deal
+- The dealer shuffles the deck and deals four cards to each player.
+- Players place bids based on their cards.
+- The winner of the bidding sets the trump suit.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Game Play
+- The first trick starts with the player to the left of the dealer.
+- Players must follow suit if they can.
+- The trump suit is initially unknown to all players.
+- The first player unable to follow suit asks the bidder about the trump suit.
+- The highest-value card of the declared trump suit wins the trick.
 
-### `npm run build`
+Note: The game is traditionally played with the 2s, 3s, 4s, and 5s used as trump indicators. Each player receives cards from each suit, and sometimes the 6s are used for scoring.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Enjoy playing Twenty-Nine!
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+You can play this game live at [https://game.akmr.me](https://game.akmr.me).
