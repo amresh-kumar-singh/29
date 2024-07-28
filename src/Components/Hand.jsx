@@ -58,6 +58,7 @@ export default function Hand({ player, seventh }) {
       ).map((item) => (
         <ImageListItem
           key={item}
+          // style={{ display: "inline-block" }}
           className={
             (error && item && item[1] === table[initialPlayer][1]) ||
             seventh === item

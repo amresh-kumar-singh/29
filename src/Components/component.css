@@ -99,6 +99,13 @@
   width: fit-content;
   height: 24vh;
 }
+
+.player-south li img {
+  object-fit: contain !important;
+  display: block;
+  width: auto !important;
+}
+
 .player-north {
   position: absolute;
   top: 0%;
