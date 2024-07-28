@@ -3,7 +3,7 @@ import BlockIcon from "@mui/icons-material/Block";
 import "./cardStyle.css";
 import { memo } from "react";
 
-const CardsPattern = ({ classCards, cover, onClick, src, number }) => {
+const CardsPattern = ({ classCards, cover, onPointerUp, src, number }) => {
   const { theme } = ThemeState();
 
   return (
@@ -33,7 +33,7 @@ const CardsPattern = ({ classCards, cover, onClick, src, number }) => {
                 }
               : { boxSizing: "border-box", border: ".8vw solid white" }),
           }}
-          onClick={onClick}
+          onPointerUp={onPointerUp}
         >
           {classCards === "trump" && (
             <div className="title">

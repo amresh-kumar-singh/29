@@ -28,7 +28,7 @@ export default function TableStyle() {
       <React.Fragment>
         <Button
           variant="contained"
-          onClick={toggleDrawer()}
+          onPointerUp={toggleDrawer()}
           style={{
             display: state && "none",
             position: "absolute",
@@ -41,7 +41,7 @@ export default function TableStyle() {
           Theme
         </Button>
         <Drawer anchor="right" open={state} onClose={() => setState(false)}>
-          <Button sx={{}} onClick={toggleDrawer()} endIcon={<CloseIcon />}>
+          <Button sx={{}} onPointerUp={toggleDrawer()} endIcon={<CloseIcon />}>
             Theme
           </Button>
           <Divider />

@@ -1,0 +1,20 @@
+name: Deploy
+"on":
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy using ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: "${{ secrets.HOST }}"
+          username: "${{ secrets.USERNAME }}"
+          key: "${{ secrets.SECRET_PRIVATE_KEY }}"
+          port: "${{ secrets.PORT }}"
+          script: |
+            cd /var/www/next/game
+            npm install
+            npm run build

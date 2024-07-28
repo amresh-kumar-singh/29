@@ -15,7 +15,7 @@ const TableTheme = () => {
               display: "flex",
               justifyContent: "space-between",
             }}
-            onClick={() =>
+            onPointerUp={() =>
               setTheme((prev) => {
                 return { ...prev, table: color };
               })

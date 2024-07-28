@@ -103,7 +103,7 @@ const Auction = ({
                 bidder[0] === 0 ? "pointer !important" : "none !important",
             }}
             className={element <= call.call ? "visited" : ""}
-            onClick={() => element > call.call && handleCall(element)}
+            onPointerUp={() => element > call.call && handleCall(element)}
           >
             {element}
           </Grid>
@@ -113,7 +113,7 @@ const Auction = ({
         item
         xs={4}
         component="span"
-        onClick={handlePass}
+        onPointerUp={handlePass}
         sx={{ marginLeft: "4% !important" }}
       >
         Pass

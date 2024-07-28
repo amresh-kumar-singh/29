@@ -25,15 +25,15 @@ function Start({ setStartGame }) {
     <div className="start">
       <main>
         {gameStatus && (
-          <button className="btn" onClick={() => setStartGame(true)}>
+          <button className="btn" onPointerUp={() => setStartGame(true)}>
             <span>Resume</span>
           </button>
         )}
-        <button className="btn" onClick={handleNewGame}>
+        <button className="btn" onPointerUp={handleNewGame}>
           New Game
         </button>
         {themeStatus && (
-          <button className="btn" onClick={handleResetTheme}>
+          <button className="btn" onPointerUp={handleResetTheme}>
             Reset Theme
           </button>
         )}

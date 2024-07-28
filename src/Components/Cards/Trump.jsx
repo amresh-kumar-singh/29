@@ -34,7 +34,7 @@ const Trump = () => {
     <CardsPattern
       cover={cover}
       classCards="trump"
-      onClick={handleShow}
+      onPointerUp={handleShow}
       src="red_joker"
       number={0}
     />

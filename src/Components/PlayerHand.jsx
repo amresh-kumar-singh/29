@@ -68,7 +68,7 @@ export default function PlayerHand({ player, seventh }) {
           <img
             src={`cards/Game/${item}.png`}
             alt={item}
-            onClick={() => handleClick(player, item)}
+            onPointerUp={() => handleClick(player, item)}
           />
         </ImageListItem>
       ))}

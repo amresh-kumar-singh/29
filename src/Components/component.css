@@ -104,6 +104,7 @@
   object-fit: contain !important;
   display: block;
   width: auto !important;
+  cursor: pointer;
 }
 
 .player-north {

@@ -28,7 +28,7 @@ export default function Avatar({ value }) {
       {avatars.map((item) => (
         <ImageListItem
           key={item}
-          onClick={() => handleChange(item)}
+          onPointerUp={() => handleChange(item)}
           sx={{ cursor: "pointer", position: "relative" }}
         >
           <img

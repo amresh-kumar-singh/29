@@ -15,7 +15,7 @@ const StartGame = ({ handleShuffle }) => {
         left: "50%",
         transform: "translate(-50%,-50%)",
       }}
-      onClick={handleShuffle}
+      onPointerUp={handleShuffle}
       startIcon={<PlayArrowIcon />}
     >
       {gameCards.length === 32 ? "Deal" : "Start Game"}

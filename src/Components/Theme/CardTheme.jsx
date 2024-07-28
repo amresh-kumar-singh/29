@@ -23,7 +23,7 @@ const CardTheme = () => {
         <ListItem sx={{ padding: "3px" }} key={key}>
           <div
             className={`pattern close ${key} card-theme-item`}
-            onClick={() =>
+            onPointerUp={() =>
               setTheme((prev) => {
                 return { ...prev, card: key };
               })

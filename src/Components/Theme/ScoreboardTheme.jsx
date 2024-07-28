@@ -18,7 +18,7 @@ const ScoreboardTheme = () => {
               borderBottom: "1px solid white",
               cursor: "pointer",
             }}
-            onClick={() =>
+            onPointerUp={() =>
               setTheme((prev) => {
                 return {
                   ...prev,

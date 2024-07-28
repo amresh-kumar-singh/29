@@ -27,7 +27,7 @@ const PWA = () => {
           top: "12%",
           right: "1%",
         }}
-        onClick={handleInstall}
+        onPointerUp={handleInstall}
         endIcon={
           device === "Mobile" ? (
             <InstallMobileTwoToneIcon />

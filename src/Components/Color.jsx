@@ -47,8 +47,10 @@ export default function Color({ setDisplayAuction, colorType }) {
               height: "16vmin",
               objectFit: "contain",
               cursor: "pointer",
+              display: "block",
+              width: "auto",
             }}
-            onClick={() => {
+            onPointerUp={() => {
               handleColor(item);
             }}
           />

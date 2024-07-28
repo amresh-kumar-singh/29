@@ -36,10 +36,14 @@ export default function Prompt({ open, setOpen, handleClick }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" color="warning" onClick={handleClose}>
+          <Button variant="contained" color="warning" onPointerUp={handleClose}>
             Cancle
           </Button>
-          <Button variant="contained" color="secondary" onClick={handleClick}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onPointerUp={handleClick}
+          >
             Install
           </Button>
         </DialogActions>

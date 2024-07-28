@@ -21,7 +21,7 @@ const ExitGame = ({ setStartGame }) => {
       color="secondary"
       sx={{ zIndex: "6", position: "absolute", bottom: "15%", right: "1%" }}
       size="large"
-      onClick={handleExit}
+      onPointerUp={handleExit}
     >
       <ExitToAppIcon />
     </Button>

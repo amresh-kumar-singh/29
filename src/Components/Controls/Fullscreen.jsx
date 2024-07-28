@@ -37,7 +37,7 @@ const Fullscreen = () => {
   return (
     <Button
       variant="contained"
-      onClick={handleScreenStatus}
+      onPointerUp={handleScreenStatus}
       color="secondary"
       size="large"
       sx={{ position: "absolute", bottom: "1%", right: "1%" }}
